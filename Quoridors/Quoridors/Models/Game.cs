@@ -42,35 +42,73 @@ namespace Quoridors.Models
             };
         }
 
-        public Dictionary<int, Position> GetPlayerPositions(int gameID)
+        public List<PositionDb> GetPlayerPositions(int gameID)
         {
             
-            var positions = _positionRepository.All();      //currently, this will probably get all of the positions.Ever.For ALL players. Need to figure out how to get gameID data.
-            
-            var listofPlayersPositions = new Dictionary<int, Position>();
-            foreach (var player in positions) //where player.GameId == gameID
+            var positions = _positionRepository.All(); 
+            return positions.Where(player => player.GameId == gameID).ToList();
+        }
+
+        public List<WallDb> GetWallPositions(int gameID)
+        {
+            var walls = _wallRepository.All();
+            return walls.Where(wall => wall.GameId == gameID).ToList();
+        }
+
+        public void UpdateBoard(List<PositionDb> playerPositions, List<WallDb> wallPositions)
+        {
+            foreach (var player in playerPositions)
             {
-                if (player.GameId == gameID)
+                Board[player.XPos*2+1][player.YPos*2+1] = player.Id.ToString();
+            }
+
+            foreach (var wall in wallPositions)
+            {
+                if (wall.Direction == 0) //then wall is facing down.
                 {
-                    listofPlayersPositions.Add(player.PlayerId, new Position(player.XPos, player.YPos));
+                    Board[wall.XPos*2 + 1][wall.YPos*2] = "W";
+                    Board[wall.XPos*2 + 3][wall.YPos*2] = "W";
+                }
+                if (wall.Direction == 1)   //then wall is going right.
+                {
+                    Board[wall.XPos*2][wall.YPos*2 + 1] = "W";
+                    Board[wall.XPos*2][wall.YPos*2 + 3] = "W";
                 }
             }
-            //var player1 = positions.PlayerId;
-            
-
-            //get from repo all of the players on current board.
-            return listofPlayersPositions;
         }
 
-        public void GetWallPositions(int gameID)
+        //receives response from game
+        //checks validity of player position
+        //checks validity of wall position
+        //adds new wall or player to model
+        public void updatePlayerPositionModel(PositionDb position)
         {
-
+            Board[position.XPos*2+1][position.YPos*2+1] = position.PlayerId.ToString();
         }
 
-        public void UpdateBoard()
+        public void updateWallPositionModel(WallDb wallposition)
         {
-            
+            if (wallposition.Direction == 0) //then wall is facing down.
+            {
+                Board[wallposition.XPos * 2 + 1][wallposition.YPos * 2] = "W";
+                Board[wallposition.XPos * 2 + 3][wallposition.YPos * 2] = "W";
+            }
+            if (wallposition.Direction == 1)   //then wall is going right.
+            {
+                Board[wallposition.XPos * 2][wallposition.YPos * 2 + 1] = "W";
+                Board[wallposition.XPos * 2][wallposition.YPos * 2 + 3] = "W";
+            }
         }
 
+        //update repo....???
+        public void updatePlayerPositionDB(PositionDb position)
+        {
+            _positionRepository.Update //protected..?
+        }
+
+        public void updateWallPositionDB(WallDb wallposition)
+        {
+            _wallRepository.Update //protected..?
+        }
     }
 }
