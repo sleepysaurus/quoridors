@@ -26,6 +26,12 @@ namespace Quoridors.Models.Database
         public override IEnumerable<PositionDb> All()
         {
             return ExecuteReadStoredProcedure("GetAllPosition", new SqlParameter[] {});
-        }
+        } 
+
+
+        //public  IEnumerable<PositionDb> GetByGame(int id)
+        //{
+        //    return ExecuteReadStoredProcedure("GetByGame", new SqlParameter[] {new SqlParameter("gameid",id) });
+        //}
     }
 }
