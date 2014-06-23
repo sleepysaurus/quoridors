@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using Quoridors.Models.DatabaseModels;
 
@@ -24,6 +25,11 @@ namespace Quoridors.Models.Database
         public override IEnumerable<PlayerDb> All()
         {
             return ExecuteReadStoredProcedure("GetAllPlayer", new SqlParameter[] {});
+        }
+
+        public Position GetPosition(int playerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

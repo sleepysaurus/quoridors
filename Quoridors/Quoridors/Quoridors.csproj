@@ -187,8 +187,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\BoardToJsonMapper.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\JsonToBoardMapper.cs" />
     <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Position.cs" />
