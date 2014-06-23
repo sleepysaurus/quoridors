@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Quoridors.Models
 {
@@ -19,11 +16,11 @@ namespace Quoridors.Models
 
             if (PlayerNumber == 1)
             {
-                Position = new Position(){Horizontal = 4, Vertical = 8};
+                Position = new Position(4, 8);
             }
             if (PlayerNumber == 2)
             {
-                Position = new Position(){Horizontal = 4, Vertical = 0};
+                Position = new Position(4, 0);
             }
         }
     }
