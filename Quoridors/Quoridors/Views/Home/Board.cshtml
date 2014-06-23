@@ -115,10 +115,15 @@
 </body>
 
 <script type="text/javascript">
-    $.document.ready(function() {
+    $(document).ready(function() {
 
-        $('td').click(function() {
-            $('td').addClass('active');
+        $('td').click(function () {
+            console.log("You clicked me");
+
+            console.log("this", this);
+            console.log("this2", $(this));
+
+            $(this).addClass('active');
         });
     });
 </script>
