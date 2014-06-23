@@ -9,5 +9,6 @@ namespace Quoridors.Models
     {
         public int Turn { get; set; }
         public Player Winner { get; set; }
+        public string[][] Board { get; set; }
     }
 }

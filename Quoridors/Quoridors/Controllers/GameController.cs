@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Helpers;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Quoridors.Models;
-using Newtonsoft.Json;
-using System.Net;
 
 namespace Quoridors.Controllers
 {
     public class GameController : Controller
     {
+        public string[][] Board { get; set; }
+        private readonly JsonToBoardMapper _boardMapper = new JsonToBoardMapper();
+
+        public GameController(string[][] board)
+        {
+            Board = board;
+        }
+
         [HttpGet]
         public JsonResult NewGame()
         {
@@ -25,13 +26,17 @@ namespace Quoridors.Controllers
             return Json(players, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public bool MovePlayer(Move move)
         {
+            var newBoard = _boardMapper.MovePlayer(move, Board);
             return true;
         }
 
+        [HttpPost]
         public bool PlaceWall(Wall wall)
         {
+            var newBoard = _boardMapper.AddWall(wall, Board);
             return true;
         }
     }
