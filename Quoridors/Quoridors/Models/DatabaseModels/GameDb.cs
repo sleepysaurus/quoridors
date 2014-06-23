@@ -1,6 +1,6 @@
 ﻿namespace Quoridors.Models.DatabaseModels
 {
-    public class Game
+    public class GameDb
     {
         public int Id { get; set; }
     }

@@ -4,18 +4,18 @@ using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public class PositionRepository : Repository<Position>
+    public class PositionRepository : Repository<PositionDb>
     {
-        protected override Position NewModel(SqlDataReader reader)
+        protected override PositionDb NewModel(SqlDataReader reader)
         {
-            return new Position
+            return new PositionDb
                 (reader.GetInt32(reader.GetOrdinal("player_id")),
                 reader.GetInt32(reader.GetOrdinal("x_pos")),
                 reader.GetInt32(reader.GetOrdinal("y_pos")),
                 reader.GetInt32(reader.GetOrdinal("game_id")));
         }
 
-        protected Position Update(Position toUpdate)
+        protected PositionDb Update(PositionDb toUpdate)
         {
             ExecuteStoredProcedure("CreatePlayer", toUpdate,
                 new SqlParameter[] { new SqlParameter("@PlayerId", toUpdate.Id), new SqlParameter("@XPos", toUpdate.XPos), new SqlParameter("@YPos", toUpdate.YPos)});
@@ -23,7 +23,7 @@ namespace Quoridors.Models.Database
             return toUpdate;
         }
 
-        public override IEnumerable<Position> All()
+        public override IEnumerable<PositionDb> All()
         {
             return ExecuteReadStoredProcedure("GetAllPosition", new SqlParameter[] {});
         }

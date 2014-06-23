@@ -1,12 +1,12 @@
 ﻿namespace Quoridors.Models.DatabaseModels
 {
-    public class Player
+    public class PlayerDb
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int GameId { get; set; }
 
-        public Player(string name, int gameId)
+        public PlayerDb(string name, int gameId)
         {
             Name = name;
             GameId = gameId;

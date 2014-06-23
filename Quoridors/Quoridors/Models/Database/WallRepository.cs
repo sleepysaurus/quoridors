@@ -4,18 +4,18 @@ using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public class WallRepository : Repository<Wall>
+    public class WallRepository : Repository<WallDb>
     {
-        protected override Wall NewModel(SqlDataReader reader)
+        protected override WallDb NewModel(SqlDataReader reader)
         {
-            return new Wall
+            return new WallDb
                 (reader.GetInt32(reader.GetOrdinal("x_pos")),
                 reader.GetInt32(reader.GetOrdinal("y_pos")),
                 reader.GetInt32(reader.GetOrdinal("direction")),
                 reader.GetInt32(reader.GetOrdinal("game_id")));
         }
 
-        protected Wall CreateWall(Wall toCreate)
+        protected WallDb CreateWall(WallDb toCreate)
         {
             ExecuteStoredProcedure("CreateWall", toCreate,
                 new SqlParameter[] { new SqlParameter("@XPos", toCreate.XPos), new SqlParameter("@YPos", toCreate.YPos), 
@@ -24,7 +24,7 @@ namespace Quoridors.Models.Database
             return toCreate;
         }
 
-        public override IEnumerable<Wall> All()
+        public override IEnumerable<WallDb> All()
         {
             return ExecuteReadStoredProcedure("GetAllWall", new SqlParameter[] { });
         }

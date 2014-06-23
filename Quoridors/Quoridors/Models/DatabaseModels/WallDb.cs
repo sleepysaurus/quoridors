@@ -1,18 +1,18 @@
 ﻿namespace Quoridors.Models.DatabaseModels
 {
-    public class Position
+    public class WallDb
     {
         public int Id { get; set; }
-        public int PlayerId { get; set; }
         public int XPos { get; set; }
         public int YPos { get; set; }
+        public int Direction { get; set; }
         public int GameId { get; set; }
 
-        public Position(int playerId, int xPos, int yPos, int gameId)
+        public WallDb(int xPos, int yPos, int direction, int gameId)
         {
-            PlayerId = playerId;
             XPos = xPos;
             YPos = yPos;
+            Direction = direction;
             GameId = gameId;
         }
     }

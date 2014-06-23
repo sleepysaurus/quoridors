@@ -4,16 +4,16 @@ using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public class PlayerRepository : Repository<Player>
+    public class PlayerRepository : Repository<PlayerDb>
     {
-        protected override Player NewModel(SqlDataReader reader)
+        protected override PlayerDb NewModel(SqlDataReader reader)
         {
-            return new Player
+            return new PlayerDb
                 (reader.GetString(reader.GetOrdinal("name")),
                 reader.GetInt32(reader.GetOrdinal("game_id")));
         }
 
-        protected Player CreatePlayer(Player toCreate)
+        protected PlayerDb CreatePlayer(PlayerDb toCreate)
         {
             ExecuteStoredProcedure("CreatePlayer", toCreate,
                 new SqlParameter[] { new SqlParameter("@name", toCreate.Name), new SqlParameter("@game_id", toCreate.GameId) });
@@ -21,7 +21,7 @@ namespace Quoridors.Models.Database
             return toCreate;
         }
 
-        public override IEnumerable<Player> All()
+        public override IEnumerable<PlayerDb> All()
         {
             return ExecuteReadStoredProcedure("GetAllPlayer", new SqlParameter[] {});
         }

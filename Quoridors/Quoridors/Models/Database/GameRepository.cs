@@ -4,20 +4,20 @@ using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public class GameRepository : Repository<Game>
+    public class GameRepository : Repository<GameDb>
     {
-        protected override Game NewModel(SqlDataReader reader)
+        protected override GameDb NewModel(SqlDataReader reader)
         {
-            return new Game();
+            return new GameDb();
         }
 
         protected int CreateGame()
         {
-            ExecuteStoredProcedure("CreateGame", new Game(), new SqlParameter[]{});
+            ExecuteStoredProcedure("CreateGame", new GameDb(), new SqlParameter[]{});
             return GetLastId();
         }
 
-        public override IEnumerable<Game> All()
+        public override IEnumerable<GameDb> All()
         {
             return ExecuteReadStoredProcedure("GetAllGame", new SqlParameter[]{});
         }
