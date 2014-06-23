@@ -1,0 +1,73 @@
+﻿body {
+    font-family: sans-serif;
+    background: url("../Content/image/black.jpg") no-repeat;
+    background-size: 100%;
+    text-align: center;
+}
+
+button {
+    font-weight: 700;
+    border-radius: 5px;
+    background-color: #369196;
+    border: none;
+    height: 25px;
+}
+
+button:hover {
+    background-color: #48C0C7;
+    border: none;
+}
+
+#logo {
+    font-family: sans-serif;
+    font-size: 100px;
+    color: black;
+    margin: 0px;
+}
+
+.box {
+    background: url("../Content/image/wood.jpg") no-repeat;
+}
+
+
+.game_board {
+    width: 660px;
+    margin: auto;
+    
+}
+
+.container {
+    background-color: black;
+}
+
+table {
+    border: 1px black solid;
+    width: 1000px;
+}
+
+
+td {
+    background-color: 9F89BF;
+    border: 1px #312A3B solid;
+    height: 70px;
+    width: 70px;
+    empty-cells: show;
+}
+
+
+tr {
+    border: 1px #312A3B solid;
+    background-color: #969696;
+}
+
+.player_1 {
+    background-color: #7F0000;
+}
+
+.player_2 {
+    background-color: #1176F6;
+}
+
+.active {
+    background-color: red;
+}
