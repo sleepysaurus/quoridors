@@ -7,7 +7,7 @@ using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
-//using Quoridors.Models;
+using Quoridors.Models;
 
 namespace Quoridors
 {
@@ -16,11 +16,7 @@ namespace Quoridors
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-<<<<<<< HEAD
-            //// Configure the db context and user manager to use a single instance per request
-=======
             // Configure the db context and user manager to use a single instance per request
->>>>>>> origin/Controller
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
             //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 

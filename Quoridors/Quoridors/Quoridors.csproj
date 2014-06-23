@@ -180,11 +180,28 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MovePlayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\Direction.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Move.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Wall.cs" />
+    <Compile Include="Models\Database\GameRepository.cs" />
+    <Compile Include="Models\Database\PlayerRepository.cs" />
+    <Compile Include="Models\Database\PositionRepository.cs" />
+    <Compile Include="Models\Database\Repository.cs" />
+    <Compile Include="Models\Database\WallRepository.cs" />
+    <Compile Include="Models\DatabaseModels\GameDb.cs" />
+    <Compile Include="Models\DatabaseModels\PlayerDb.cs" />
+    <Compile Include="Models\DatabaseModels\PositionDb.cs" />
+    <Compile Include="Models\DatabaseModels\WallDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -238,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
