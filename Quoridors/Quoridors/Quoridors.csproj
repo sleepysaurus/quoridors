@@ -168,12 +168,14 @@
     </Compile>
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardToJsonMapper.cs" />
+    <Compile Include="Models\Brick.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\JsonToBoardMapper.cs" />
     <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\PositionJson.cs" />
     <Compile Include="Models\Wall.cs" />
     <Compile Include="Models\Database\GameRepository.cs" />
     <Compile Include="Models\Database\PlayerRepository.cs" />
