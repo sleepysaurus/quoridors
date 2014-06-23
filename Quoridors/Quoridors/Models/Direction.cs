@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Quoridors.Models
 {
-    public enum Direction
+    public enum Direction // BA unused outside of Wall. Wall is unused
     {
         Up,
         Down,

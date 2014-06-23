@@ -9,7 +9,7 @@ namespace Quoridors.Models
         public Position Position { get; set; }
         public string PlayerName { get; set; }
 
-        public Player(int playerNumber, string playerName)
+        public Player(int playerNumber, string playerName)// BA do you want starting positions every time you construct a new player? Should you be passing positions in?
         {
             PlayerNumber = playerNumber;
             PlayerName = playerName;

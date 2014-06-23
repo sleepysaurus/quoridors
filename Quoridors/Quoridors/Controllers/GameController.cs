@@ -1,18 +1,14 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq.Expressions;
+using System.Web.Mvc;
 using Quoridors.Models;
+using Quoridors.Models.Database;
 using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Controllers
 {
     public class GameController : Controller
     {
-        public string[][] Board { get; set; }
-        private readonly JsonToBoardMapper _boardMapper = new JsonToBoardMapper();
-
-        //public GameController(string[][] board)
-        //{
-        //    Board = board;
-        //}
+        private readonly BoardStateUpdater _boardStateUpdater = new BoardStateUpdater();
 
         [HttpGet]
         public JsonResult NewGame()
@@ -24,20 +20,33 @@ namespace Quoridors.Controllers
                 player1,
                 player2
             };
+            // TODO use gamefactory to create a new game, save it to the DB, send it back to the client
+
             return Json(players, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public bool MovePlayer(Move move)
+        public bool MovePlayer(Move move) // BA not a bool return; send back the board state
         {
-            var newBoard = _boardMapper.MovePlayer(move, Board);
+            
+           // TODO load game
+            // TODO map a GameDb to game???
+
+            var newBoard = _boardStateUpdater.MovePlayer(move, game);
+
+            // TODO get the gamerepository to save the new state - probably just save the new move
+            // TODO get the BoardToJsonMapper to serialize the board to Json
+            // TODO send the bugger back to the client
+
             return true;
         }
 
         [HttpPost]
         public bool PlaceWall(WallDb wall)
         {
-            var newBoard = _boardMapper.AddWall(wall, Board);
+            var newBoard = _boardStateUpdater.AddWall(wall, someBoard);
+
+            // TODO ditto all the stuff in MovePlayer
             return true;
         }
     }

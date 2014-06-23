@@ -174,7 +174,8 @@
     <Compile Include="Models\Database\Interfaces\IWallRepository.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\JsonToBoardMapper.cs" />
+    <Compile Include="Models\BoardStateUpdater.cs" />
+    <Compile Include="Models\GameFactory.cs" />
     <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Position.cs" />
