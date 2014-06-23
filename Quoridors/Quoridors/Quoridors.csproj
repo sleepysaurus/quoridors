@@ -168,6 +168,9 @@
     </Compile>
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardToJsonMapper.cs" />
+    <Compile Include="Models\Database\Interfaces\IPositionRepository.cs" />
+    <Compile Include="Models\Database\Interfaces\IRepository.cs" />
+    <Compile Include="Models\Database\Interfaces\IWallRepository.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\JsonToBoardMapper.cs" />

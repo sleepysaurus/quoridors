@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public class WallRepository : Repository<WallDb>
+    public class WallRepository : Repository<WallDb>, IWallRepository
     {
-        protected override WallDb NewModel(SqlDataReader reader)
+        public override WallDb NewModel(SqlDataReader reader)
         {
             return new WallDb
                 (reader.GetInt32(reader.GetOrdinal("x_pos")),
@@ -15,7 +16,7 @@ namespace Quoridors.Models.Database
                 reader.GetInt32(reader.GetOrdinal("game_id")));
         }
 
-        protected WallDb CreateWall(WallDb toCreate)
+        public WallDb CreateWall(WallDb toCreate)
         {
             ExecuteStoredProcedure("CreateWall", toCreate,
                 new SqlParameter[] { new SqlParameter("@XPos", toCreate.XPos), new SqlParameter("@YPos", toCreate.YPos), 

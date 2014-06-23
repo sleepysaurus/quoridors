@@ -7,7 +7,7 @@ namespace Quoridors.Models.Database
 {
     public class PlayerRepository : Repository<PlayerDb>
     {
-        protected override PlayerDb NewModel(SqlDataReader reader)
+        public override PlayerDb NewModel(SqlDataReader reader)
         {
             return new PlayerDb
                 (reader.GetString(reader.GetOrdinal("name")),

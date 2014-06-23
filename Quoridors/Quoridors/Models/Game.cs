@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Quoridors.Models.Database;
+using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models
@@ -10,11 +11,14 @@ namespace Quoridors.Models
         public int Turn { get; set; }
         public Player Winner { get; set; }
         public string[][] Board { get; set; }
-        private readonly PositionRepository _positionRepository = new PositionRepository();
-        private readonly WallRepository _wallRepository = new WallRepository();
+        private readonly IPositionRepository _positionRepository;
+        private readonly IWallRepository _wallRepository;
 
-        public Game()
+        public Game(IPositionRepository positionRepository, IWallRepository wallRepository)
         {
+            _positionRepository = positionRepository;
+            _wallRepository = wallRepository;
+
             // TODO DRY this shit up
             Board = new[]
             {
@@ -40,8 +44,7 @@ namespace Quoridors.Models
 
         public List<PositionDb> GetPlayerPositions(int gameId)
         {         
-            var positions = _positionRepository.All(); 
-            return positions.Where(player => player.GameId == gameId).ToList();
+            return _positionRepository.GetByGame(gameId).ToList();
         }
 
         public List<WallDb> GetWallPositions(int gameId)

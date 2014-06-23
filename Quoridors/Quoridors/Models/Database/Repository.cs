@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Quoridors.Models.Database.Interfaces;
 
 namespace Quoridors.Models.Database
 {
-    public abstract class Repository<T> : IDisposable
+    public abstract class Repository<T> : IRepository<T>
     {
         public abstract IEnumerable<T> All();
 
@@ -17,7 +17,7 @@ namespace Quoridors.Models.Database
             _command = new SqlCommand("", _connection);
         }
 
-        protected void ExecuteStoredProcedure(string procedureName, T thingToDoStuffWith, SqlParameter[] parameters)
+        public void ExecuteStoredProcedure(string procedureName, T thingToDoStuffWith, SqlParameter[] parameters)
         {
             _command.CommandText = procedureName;
             _command.CommandType = CommandType.StoredProcedure;
@@ -25,7 +25,7 @@ namespace Quoridors.Models.Database
             _command.ExecuteNonQuery();
         }
 
-        protected IEnumerable<T> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters)
+        public IEnumerable<T> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters)
         {
             _command.CommandText = procedureName;
             _command.CommandType = CommandType.StoredProcedure;
@@ -45,13 +45,13 @@ namespace Quoridors.Models.Database
         private readonly SqlConnection _connection;
         private readonly SqlCommand _command;
 
-        protected void ExecuteNonQuery(string query)
+        public void ExecuteNonQuery(string query)
         {
             _command.CommandText = query;
             _command.ExecuteNonQuery();
         }
 
-        protected int GetLastId()
+        public int GetLastId()
         {
             _command.CommandText = "SELECT @@IDENTITY as [identity];";
             using (var reader = _command.ExecuteReader())
@@ -61,7 +61,7 @@ namespace Quoridors.Models.Database
             }
         }
 
-        protected IEnumerable<T> ExecuteRead(string query)
+        public IEnumerable<T> ExecuteRead(string query)
         {
             _command.CommandText = query;
 
@@ -76,7 +76,7 @@ namespace Quoridors.Models.Database
             }
         }
 
-        protected abstract T NewModel(SqlDataReader reader);
+        public abstract T NewModel(SqlDataReader reader);
 
         public void Dispose()
         {

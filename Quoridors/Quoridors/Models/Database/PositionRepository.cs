@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public class PositionRepository : Repository<PositionDb>
+    public class PositionRepository : Repository<PositionDb>, IPositionRepository
     {
-        protected override PositionDb NewModel(SqlDataReader reader)
+        public override PositionDb NewModel(SqlDataReader reader)
         {
             return new PositionDb
                 (reader.GetInt32(reader.GetOrdinal("player_id")),
@@ -29,9 +30,9 @@ namespace Quoridors.Models.Database
         } 
 
 
-        //public  IEnumerable<PositionDb> GetByGame(int id)
-        //{
-        //    return ExecuteReadStoredProcedure("GetByGame", new SqlParameter[] {new SqlParameter("gameid",id) });
-        //}
+        public  IEnumerable<PositionDb> GetByGame(int id)
+        {
+            return ExecuteReadStoredProcedure("GetByGame", new SqlParameter[] {new SqlParameter("gameid",id) });
+        }
     }
 }

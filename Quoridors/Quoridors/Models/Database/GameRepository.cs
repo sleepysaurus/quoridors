@@ -6,7 +6,7 @@ namespace Quoridors.Models.Database
 {
     public class GameRepository : Repository<GameDb>
     {
-        protected override GameDb NewModel(SqlDataReader reader)
+        public override GameDb NewModel(SqlDataReader reader)
         {
             return new GameDb();
         }

@@ -9,17 +9,17 @@ namespace Quoridors.Controllers
         public string[][] Board { get; set; }
         private readonly JsonToBoardMapper _boardMapper = new JsonToBoardMapper();
 
-        public GameController(string[][] board)
-        {
-            Board = board;
-        }
+        //public GameController(string[][] board)
+        //{
+        //    Board = board;
+        //}
 
         [HttpGet]
         public JsonResult NewGame()
         {
             var player1 = new Player(1, "John");
             var player2 = new Player(2, "Samantha");
-            var players = new Player[]
+            var players = new[]
             {
                 player1,
                 player2
