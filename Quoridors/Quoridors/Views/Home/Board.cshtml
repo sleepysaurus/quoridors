@@ -105,25 +105,26 @@
                     <td></td>
                 </tr>
             </table>
-            <br/>
-            <br />
-            <button>Move</button>
-            <button>Vertical Wall</button>
-            <button>Horizontal Wall</button>
+            <div>
+                <button>Move</button>
+                <button>Vertical Wall</button>
+                <button>Horizontal Wall</button>
+            </div>
         </div>
     </div>
 </body>
 
 <script type="text/javascript">
     $(document).ready(function() {
-
-        $('td').click(function () {
+            
+            $('td').click(function () {
             console.log("You clicked me");
 
             console.log("this", this);
             console.log("this2", $(this));
 
             $(this).addClass('active');
+            
         });
     });
 </script>

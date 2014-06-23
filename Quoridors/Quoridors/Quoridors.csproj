@@ -192,8 +192,8 @@
     <Content Include="Content\Board.css" />
     <Content Include="Content\grid.css" />
     <Content Include="Content\image\black.jpg" />
-    <Content Include="Content\image\black1.jpg" />
-    <Content Include="Content\image\grass.jpg" />
+    <Content Include="Content\image\darkwood.png" />
+    <Content Include="Content\image\lightwood.png" />
     <Content Include="Content\image\wood.jpg" />
     <Content Include="Content\normalize.css" />
     <Content Include="favicon.ico" />

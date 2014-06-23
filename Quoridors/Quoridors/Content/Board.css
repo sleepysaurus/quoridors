@@ -1,7 +1,6 @@
 ﻿body {
     font-family: sans-serif;
-    background: url("../Content/image/black.jpg") no-repeat;
-    background-size: 100%;
+    background: url("../Content/image/darkwood.png") repeat;
     text-align: center;
 }
 
@@ -11,6 +10,7 @@ button {
     background-color: #369196;
     border: none;
     height: 25px;
+    margin-top: -10px;
 }
 
 button:hover {
@@ -19,21 +19,21 @@ button:hover {
 }
 
 #logo {
-    font-family: sans-serif;
+    font-family: 'Lobster Two', cursive;
     font-size: 100px;
     color: black;
     margin: 0px;
 }
 
 .box {
-    background: url("../Content/image/wood.jpg") no-repeat;
+    background: url("../Content/image/lightwood.png") repeat;
 }
 
 
 .game_board {
     width: 660px;
     margin: auto;
-    
+    margin-bottom: 20px;
 }
 
 .container {
