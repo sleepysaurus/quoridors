@@ -8,12 +8,16 @@ namespace Quoridors.Controllers
 {
     public class GameController : Controller
     {
-        private readonly BoardStateUpdater _boardStateUpdater = new BoardStateUpdater();
-        private GameFactory _gameFactory = new GameFactory();
-        private BoardToJsonMapper _boardToJsonMapper = new BoardToJsonMapper();
-        private WallRepository _wallRepo = new WallRepository();
-        private PositionRepository _positionRepo = new PositionRepository();
-            
+        private readonly IBoardStateUpdater _boardStateUpdater;
+        private readonly IGameFactory _gameFactory;
+        private readonly BoardToJsonMapper _boardToJsonMapper = new BoardToJsonMapper();
+        private readonly WallRepository _wallRepo = new WallRepository();
+        private readonly PositionRepository _positionRepo = new PositionRepository();
+
+        public GameController(IBoardStateUpdater boardStateUpdater)
+        {
+            _boardStateUpdater = boardStateUpdater;
+        }
         [HttpGet]
         public JsonResult NewGame()
         {
