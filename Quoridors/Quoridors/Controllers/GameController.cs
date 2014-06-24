@@ -9,7 +9,11 @@ namespace Quoridors.Controllers
     public class GameController : Controller
     {
         private readonly BoardStateUpdater _boardStateUpdater = new BoardStateUpdater();
-
+        private GameFactory _gameFactory = new GameFactory();
+        private BoardToJsonMapper _boardToJsonMapper = new BoardToJsonMapper();
+        private WallRepository _wallRepo = new WallRepository();
+        private PositionRepository _positionRepo = new PositionRepository();
+            
         [HttpGet]
         public JsonResult NewGame()
         {
@@ -26,28 +30,23 @@ namespace Quoridors.Controllers
         }
 
         [HttpPost]
-        public bool MovePlayer(Move move) // BA not a bool return; send back the board state
+        public JsonResult MovePlayer(PositionDb position)
         {
-            
-           // TODO load game
-            // TODO map a GameDb to game???
-
-            var newBoard = _boardStateUpdater.MovePlayer(move, game);
-
-            // TODO get the gamerepository to save the new state - probably just save the new move
-            // TODO get the BoardToJsonMapper to serialize the board to Json
-            // TODO send the bugger back to the client
-
-            return true;
+            var game = _gameFactory.Load(position.GameId);
+            var newBoard = _boardStateUpdater.MovePlayer(position, game).Board;
+            _positionRepo.Update(position);
+            var boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard);
+            return Json(boardToReturn, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public bool PlaceWall(WallDb wall)
+        public JsonResult PlaceWall(WallDb wall)
         {
-            var newBoard = _boardStateUpdater.AddWall(wall, someBoard);
-
-            // TODO ditto all the stuff in MovePlayer
-            return true;
+            var game = _gameFactory.Load(wall.GameId);
+            var newBoard = _boardStateUpdater.AddWall(wall, game).Board;
+            _wallRepo.CreateWall(wall);
+            var boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard);
+            return Json(boardToReturn, JsonRequestBehavior.AllowGet);
         }
     }
 }
