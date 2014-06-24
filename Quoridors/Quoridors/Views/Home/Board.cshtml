@@ -50,14 +50,15 @@
         setup();
         
         $(".gameBoard td").click(function () {
-            $(".gameBoard td").removeClass("active");
 
-            $(this).addClass("active");
+            $(".gameBoard td").removeClass("player2");
+
+            $(this).addClass("player2");
             var h = $(this).data("hpoz");
 
 
         });
-        //
+
         function newGame() {
             var newGamePromise = $.ajax("/Game/NewGame");
             newGamePromise.done(processNewGameData);

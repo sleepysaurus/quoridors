@@ -18,7 +18,6 @@ namespace Quoridors.Controllers
         [HttpGet]
         public JsonResult NewGame()
         {
-            Thread.Sleep(1000);
             var player1 = new Player(1, "John");
             var player2 = new Player(2, "Samantha");
             var players = new Player[]
