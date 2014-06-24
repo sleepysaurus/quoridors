@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Quoridors.Models.Database.Interfaces;
-using Quoridors.Models.DatabaseModels;
 using Quoridors.Models.Interfaces;
-using Quoridors.Models.Services;
 
-namespace Quoridors.Models
+namespace Quoridors.Models.Services
 {
     public class GameFactory : IGameFactory
     {
