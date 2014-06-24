@@ -17,12 +17,8 @@ namespace Quoridors.Models
 
         public Game()
         {
-
-            // TODO DRY this shit up
-            // TODO do you want to do this every time a board is created, you'll end up with a new, empty board for every HttpRequest. You will need to do this somewhere? BoardFactory? Maybe?
             Board = new BoardCellStatus[17][];
             CreateBoard();
-
         }
 
         public void CreateBoard()

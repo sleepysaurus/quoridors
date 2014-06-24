@@ -45,6 +45,5 @@ namespace Quoridors.Models.Services
             _boardStateUpdater.UpdateBoardToSavedState(game);
             return game;
         }
-
     }
 }
