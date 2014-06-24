@@ -2,8 +2,6 @@
 using NUnit.Framework;
 using Quoridors.Models;
 using Quoridors.Models.Database.Interfaces;
-using NUnit.Framework;
-
 
 namespace QuoridorsTests
 {
