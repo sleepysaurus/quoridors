@@ -20,13 +20,13 @@ namespace Quoridors.Models.Services
         public Game New() // BA pass in the player names ;)
         {
             var gameId = _gameRepository.CreateGame();
-            var player1 = new Player(1, "John");
-            var player2 = new Player(2, "Samantha");
+
             var players = new List<Player>
             {
-                player1,
-                player2
+                new Player(1, "John", new Position(4,8)),
+                new Player(2, "Samantha", new Position(4,0))
             };
+
             var game = new Game
             {
                 Id = gameId,

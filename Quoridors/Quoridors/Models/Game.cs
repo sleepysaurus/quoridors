@@ -18,7 +18,7 @@ namespace Quoridors.Models
 
         public void CreateBoard()
         {
-            for (int i = 0; i < 17; i++)
+            for (var i = 0; i < 17; i++)
             {
                 Board[i] = new BoardCellStatus[17];
                 if (i % 2 == 0)
@@ -27,7 +27,7 @@ namespace Quoridors.Models
                     {
                         if (z%2 == 0)
                         {
-                            Board[i][z] = BoardCellStatus.Empty;
+                            Board[i][z] = BoardCellStatus.NoPlayer;
                         }
                         else
                         {

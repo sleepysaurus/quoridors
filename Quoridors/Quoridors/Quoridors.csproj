@@ -178,11 +178,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MovePlayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\BoardToJson.cs" />
+    <Compile Include="Models\BrickDirection.cs" />
+    <Compile Include="Models\Database\Interfaces\IPlayerRepository.cs" />
+    <Compile Include="Models\Interfaces\IBoardStateUpdater.cs" />
     <Compile Include="Models\Services\BoardToJsonMapper.cs" />
     <Compile Include="Models\Brick.cs" />
     <Compile Include="Models\Database\Interfaces\IGameRepository.cs" />
@@ -197,7 +199,6 @@
     <Compile Include="Models\Interfaces\IBoardToJsonMapper.cs" />
     <Compile Include="Models\Interfaces\IGameFactory.cs" />
     <Compile Include="Models\Interfaces\IGameDbMapperToGame.cs" />
-    <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\PositionJson.cs" />

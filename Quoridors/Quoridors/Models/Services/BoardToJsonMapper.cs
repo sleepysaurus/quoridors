@@ -8,9 +8,16 @@ namespace Quoridors.Models.Services
 {
     public class BoardToJsonMapper : IBoardToJsonMapper
     {
-        public Board CreateBoardObject(BoardCellStatus[][] board)
+        private readonly PositionRepository _positionRepository;
+
+        public BoardToJsonMapper(PositionRepository positionRepository)
         {
-           return new Board
+            _positionRepository = positionRepository;
+        }
+
+        public BoardToJson CreateBoardObject(BoardCellStatus[][] board)
+        {
+           return new BoardToJson
             {
                 ListOfBricks = GetListOfBricks(board),
                 ListOfPlayerPositions = GetListOfPlayerPositions()
@@ -31,10 +38,9 @@ namespace Quoridors.Models.Services
                         continue;
                     }
 
-                    // i and z MIGHT be the wrong way around below
                     listOfBricks.Add(i%2 != 0
-                        ? new Brick( (int) Math.Ceiling((decimal)i/2),  z/2, "top")
-                        : new Brick(i/2, (int) Math.Ceiling((decimal)z/2), "left")); // BA should these be strings? (Question not leading question :))
+                        ? new Brick( (int) Math.Ceiling((decimal)i/2),  z/2, BrickDirection.Top)
+                        : new Brick(i/2, (int) Math.Ceiling((decimal)z/2), BrickDirection.Left));
                 }
             }
 
@@ -43,8 +49,7 @@ namespace Quoridors.Models.Services
 
         public List<PositionJson> GetListOfPlayerPositions()
         {
-            var positionRepo = new PositionRepository(); // BA move to constructor
-            var listOfPositionsFromRepo = positionRepo.All();
+            var listOfPositionsFromRepo = _positionRepository.All();
 
             return listOfPositionsFromRepo.Select(positon => new PositionJson() {PlayerId = positon.PlayerId, XPos = positon.XPos, YPos = positon.YPos}).ToList();
         }

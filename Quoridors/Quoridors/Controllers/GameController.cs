@@ -1,10 +1,8 @@
 ﻿using System.Web.Mvc;
-using Quoridors.Models;
 using Quoridors.Models.Database;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 using Quoridors.Models.Interfaces;
-using Quoridors.Models.Services;
 
 namespace Quoridors.Controllers
 {

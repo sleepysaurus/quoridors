@@ -1,8 +1,7 @@
 ﻿using Quoridors.Models.DatabaseModels;
 using Quoridors.Models.Interfaces;
-using Quoridors.Models.Services;
 
-namespace Quoridors.Models
+namespace Quoridors.Models.Services
 {
     public class GameDbMapperToGame : IGameDbMapperToGame
     {
@@ -15,7 +14,7 @@ namespace Quoridors.Models
 
         public Game MappingGameFromDatabase(GameDb gameDb)
         {
-            Game game = new Game
+            var game = new Game
             {
                 Id = gameDb.Id
             };

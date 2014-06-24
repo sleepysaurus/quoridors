@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Quoridors.Models
 {
-    public enum BoardCellStatus // BA unused outside of Wall. Wall is unused
+    public enum BoardCellStatus
     {
-        Empty,
+        NoPlayer,
         Wall,
         NoWall,
         Player1,
