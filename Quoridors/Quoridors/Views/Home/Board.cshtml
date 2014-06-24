@@ -113,7 +113,7 @@
             </table>
         </div>
         <div>
-            <textarea id="msg" rows="5" cols="50" placeholder="Game messages..."></textarea>
+            <textarea id="msg" rows="3" cols="50" placeholder="Game messages..."></textarea>
         </div>
         <div>
             <button>Move</button>
@@ -123,24 +123,22 @@
     </div>
 </body>
 
-<script id="entry-template" type="text/x-handlebars-template">
+@*<script id="entry-template" type="text/x-handlebars-template">
 
 </script>
 
-<script type="text/javascript">
-    console.log("here i yam");
-    $(document).ready(function () {
+ var handleBarSource = $("#entry-template").html();
+                var template = Handlebars.compile(handleBarSource);
 
+                var html = template(player);*@
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
         NewGame();
             
         $(".gameBoard td").click(function () {
-            console.log("You clicked me");
-
-            console.log("this", this);
-            console.log("this2", $(this));
-
             $(this).addClass("active");
-            
         });
     });
 
@@ -149,25 +147,9 @@
         var newGamePromise = $.ajax("/Game/NewGame");
 
         newGamePromise.done(function(data) {
-            console.log("new game done", data);
-
-            $.each(data, function(index, player) {
-                console.log(index, player);
-
-                var handleBarSource = $("#entry-template").html();
-                var template = Handlebars.compile(handleBarSource);
-
-                var html = template(player);
-                if (player.PlayerNumber == 1)
-                { 
-
-                    $("#player1Id").html(player.PlayerName);
-                }
-                if (player.PlayerNumber == 2)
-                {
-                    $("#player2Id").html(player.PlayerName);
-                }
-
+                 $.each(data, function(index, player) {
+                var playerId = player.PlayerNumber;
+                $("#player" + playerId +"Id").html(player.PlayerName);
             });
         });
     };

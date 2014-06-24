@@ -27,13 +27,14 @@ button:hover {
 
 .box {
     background: url("../Content/image/lightwood.png") repeat;
+    height: 900px;
 }
 
 
 .gameBoard {
     width: 660px;
-    margin: auto;
-    margin-bottom: 20px;
+    /*margin: auto;*/
+    margin-bottom: 3px;
 }
 
 .container {
@@ -41,7 +42,7 @@ button:hover {
 }
 
 #msg {
-    margin: 10px;
+    margin: 3px;
 }
 
 table {
@@ -51,17 +52,11 @@ table {
 
 
 td {
-    background-color: 9F89BF;
+    background-color: #969696;
     border: 1px #312A3B solid;
     height: 70px;
     width: 70px;
     empty-cells: show;
-}
-
-
-tr {
-    border: 1px #312A3B solid;
-    background-color: #969696;
 }
 
 .player1 {
@@ -81,5 +76,5 @@ tr {
 }
 
 .active {
-    background-color: red;
+    background-color: #7F0000;
 }
