@@ -82,6 +82,7 @@ namespace QuoridorsTests.Models.Services
             var newgame = Gamefactory.New();
 
             // Assert
+<<<<<<< HEAD
             Assert.That(newgame.Players.Count == 2);
         }
 
@@ -115,5 +116,9 @@ namespace QuoridorsTests.Models.Services
             //Assert
 
         }   
+=======
+            Assert.That(newgame.Players.Count == 2 );
+        } 
+>>>>>>> 1bf2a083c6d35e5d7ba24ec899f0d487b237ed93
     }
 }
