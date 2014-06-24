@@ -4,8 +4,8 @@ namespace Quoridors.Models.Interfaces
 {
     public interface IBoardToJsonMapper
     {
-        Board CreateBoardObject(string[][] board);
-        List<Brick> GetListOfBricks(string[][] board);
+        Board CreateBoardObject(BoardCellStatus[][] board);
+        List<Brick> GetListOfBricks(BoardCellStatus[][] board);
         List<PositionJson> GetListOfPlayerPositions();
     }
 }

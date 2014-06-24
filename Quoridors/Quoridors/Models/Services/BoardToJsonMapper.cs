@@ -8,7 +8,7 @@ namespace Quoridors.Models.Services
 {
     public class BoardToJsonMapper : IBoardToJsonMapper
     {
-        public Board CreateBoardObject(string[][] board)
+        public Board CreateBoardObject(BoardCellStatus[][] board)
         {
            return new Board
             {
@@ -17,7 +17,7 @@ namespace Quoridors.Models.Services
             };
         }
 
-        public List<Brick> GetListOfBricks(string[][] board)
+        public List<Brick> GetListOfBricks(BoardCellStatus[][] board)
         {
             var listOfBricks = new List<Brick>();
 
@@ -25,7 +25,7 @@ namespace Quoridors.Models.Services
             {
                 for (var z = 0; z < board.Length; z++)
                 {
-                    if (board[i][z] != "W") continue;
+                    if (board[i][z] != BoardCellStatus.Wall) continue;
                     if (i%2 != 0 && z%2 != 0)
                     {
                         continue;

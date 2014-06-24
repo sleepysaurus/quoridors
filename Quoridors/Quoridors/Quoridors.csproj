@@ -201,7 +201,6 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\PositionJson.cs" />
-    <Compile Include="Models\Wall.cs" />
     <Compile Include="Models\Database\GameRepository.cs" />
     <Compile Include="Models\Database\PlayerRepository.cs" />
     <Compile Include="Models\Database\PositionRepository.cs" />
