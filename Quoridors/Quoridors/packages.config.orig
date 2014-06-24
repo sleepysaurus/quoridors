@@ -42,7 +42,12 @@
   <package id="Ninject.Web.Common" version="3.2.2.0" targetFramework="net45" />
   <package id="Ninject.Web.Common.WebHost" version="3.2.2.0" targetFramework="net45" />
   <package id="Owin" version="1.0" targetFramework="net45" />
+<<<<<<< HEAD
   <package id="Respond" version="1.4.2" targetFramework="net45" />
   <package id="WebGrease" version="1.6.0" targetFramework="net45" />
+=======
+  <package id="Respond" version="1.2.0" targetFramework="net45" />
   <package id="WebActivatorEx" version="2.0.5" targetFramework="net45" />
+  <package id="WebGrease" version="1.5.2" targetFramework="net45" />
+>>>>>>> f9b76cc6a67f9a838c60c939c29a90339acf696e
 </packages>

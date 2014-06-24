@@ -5,7 +5,12 @@ using System.Web;
 
 namespace Quoridors.Models
 {
-    public class Board
+    public enum BoardCellStatus
     {
+        NoPlayer,
+        Wall,
+        NoWall,
+        Player1,
+        Player2
     }
 }

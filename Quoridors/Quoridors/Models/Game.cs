@@ -1,76 +1,48 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Quoridors.Models.Database;
-using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models
 {
     public class Game
     {
+        public int Id { get; set; }
         public int Turn { get; set; }
         public Player Winner { get; set; }
-        public string[][] Board { get; set; }
-        private readonly PositionRepository _positionRepository = new PositionRepository();
-        private readonly WallRepository _wallRepository = new WallRepository();
+        public BoardCellStatus[][] Board { get; set; }
+        public List<Player> Players { get; set; }
 
         public Game()
         {
-            // TODO DRY this shit up
-            Board = new[]
-            {
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"},
-                new string[]{string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty},
-                new string[]{"0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0", string.Empty, "0"}
-            };
+            Board = new BoardCellStatus[17][];
+            CreateBoard();
         }
 
-        public List<PositionDb> GetPlayerPositions(int gameId)
-        {         
-            var positions = _positionRepository.All(); 
-            return positions.Where(player => player.GameId == gameId).ToList();
-        }
-
-        public List<WallDb> GetWallPositions(int gameId)
+        public void CreateBoard()
         {
-            var walls = _wallRepository.All();
-            return walls.Where(wall => wall.GameId == gameId).ToList();
-        }
-
-        // Why do we need this method?
-        public void UpdateBoard(List<PositionDb> playerPositions, List<WallDb> wallPositions)
-        {
-            foreach (var player in playerPositions)
+            for (var i = 0; i < 17; i++)
             {
-                Board[player.XPos*2+1][player.YPos*2+1] = player.Id.ToString();
-            }
-
-            foreach (var wall in wallPositions)
-            {
-                if (wall.Direction == 0) //then wall is facing down.
+                Board[i] = new BoardCellStatus[17];
+                if (i % 2 == 0)
                 {
-                    Board[wall.XPos*2 + 1][wall.YPos*2] = "W";
-                    Board[wall.XPos*2 + 3][wall.YPos*2] = "W";
+                    for (var z = 0; z < 17; z++)
+                    {
+                        if (z%2 == 0)
+                        {
+                            Board[i][z] = BoardCellStatus.NoPlayer;
+                        }
+                        else
+                        {
+                            Board[i][z] = BoardCellStatus.NoWall;
+                        }
+                    }
                 }
-                if (wall.Direction == 1)   //then wall is going right.
+                if (i % 2 == 1)
                 {
-                    Board[wall.XPos*2][wall.YPos*2 + 1] = "W";
-                    Board[wall.XPos*2][wall.YPos*2 + 3] = "W";
+                    for (int z = 0; z < 17; z++)
+                    {
+                        Board[i][z] = BoardCellStatus.NoWall;
+                    }
                 }
             }
-        }   
+        }
     }
 }

@@ -15,15 +15,15 @@
         <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
       </dependentAssembly>
       <dependentAssembly>
+<<<<<<< HEAD
         <assemblyIdentity name="System.Net.Http.Formatting" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-5.1.0.0" newVersion="5.1.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Http" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-5.1.0.0" newVersion="5.1.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
+=======
         <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+>>>>>>> f9b76cc6a67f9a838c60c939c29a90339acf696e
         <bindingRedirect oldVersion="0.0.0.0-5.1.0.0" newVersion="5.1.0.0" />
       </dependentAssembly>
     </assemblyBinding>
