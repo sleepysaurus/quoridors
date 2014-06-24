@@ -80,28 +80,6 @@ namespace QuoridorsTests.Models.Services
 
             // Assert
             Assert.That(newgame.Players.Count == 2 );
-        }
-
-        [Test]
-        public void The_Load_method_creates_a_Game_object()
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-
-        }
-
-        [Test]
-        public void The_Load_method_generates_a_correct_gameboard_for_given_DB_data()
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-
-        }   
+        } 
     }
 }
