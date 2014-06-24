@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Quoridors.Models.Database;
+using Quoridors.Models.Interfaces;
 
 namespace Quoridors.Models
 {
-    public class BoardToJsonMapper
+    public class BoardToJsonMapper : IBoardToJsonMapper
     {
         public Board CreateBoardObject(string[][] board)
         {

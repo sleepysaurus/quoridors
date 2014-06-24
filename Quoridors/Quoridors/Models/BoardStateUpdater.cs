@@ -9,6 +9,7 @@ namespace Quoridors.Models
     {
         Game AddWall(WallDb wallposition, Game game);
         void UpdateBoardToSavedState(Game game);
+        Game MovePlayer(PositionDb position, Game game);
     }
 
     public class BoardStateUpdater : IBoardStateUpdater

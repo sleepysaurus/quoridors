@@ -13,6 +13,7 @@ namespace Quoridors.Models
         public int Turn { get; set; }
         public Player Winner { get; set; }
         public string[][] Board { get; set; }
+        public List<Player> Players { get; set; }
 
         public Game()
         {

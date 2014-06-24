@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Quoridors.Models.DatabaseModels;
+using Quoridors.Models.Interfaces;
 
 namespace Quoridors.Models
 {
-    public class GameDbMapperToGame
+    public class GameDbMapperToGame : IGameDbMapperToGame
     {
-        private readonly BoardStateUpdater _boardStateUpdater = new BoardStateUpdater(); //Ninject section!!
+        private readonly IBoardStateUpdater _boardStateUpdater;
+
+        public GameDbMapperToGame(IBoardStateUpdater boardStateUpdater)
+        {
+            _boardStateUpdater = boardStateUpdater;
+        }
 
         public Game MappingGameFromDatabase(GameDb gameDb)
         {
