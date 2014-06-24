@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Quoridors.Models;
 using Quoridors.Models.Database;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
@@ -26,7 +27,7 @@ namespace Quoridors.Controllers
         [HttpGet]
         public JsonResult NewGame()
         {            
-            var game = _gameFactory.New();           
+            Game game = _gameFactory.New();           
             return Json(game, JsonRequestBehavior.AllowGet);
         }
 

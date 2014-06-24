@@ -104,7 +104,6 @@ namespace QuoridorsTests.Models.Services
 
             //Assert
             Assert.IsInstanceOf<Game>(newgame);
-
         }
     }
 }

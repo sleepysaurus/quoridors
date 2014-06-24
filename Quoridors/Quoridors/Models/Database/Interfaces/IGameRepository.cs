@@ -4,7 +4,7 @@ namespace Quoridors.Models.Database.Interfaces
 {
     public interface IGameRepository : IRepository<GameDb>
     {
-        int CreateGame();
+        GameDb CreateGame();
         GameDb GetById(int gameId);
     }
 }

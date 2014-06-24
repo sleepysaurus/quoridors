@@ -29,7 +29,7 @@ namespace Quoridors.Models.Services
 
             var game = new Game
             {
-                Id = gameId,
+                Id = gameId.Id,
                 Turn = 1,
                 Players = players
             };
