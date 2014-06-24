@@ -1,0 +1,66 @@
+<<<<<<< HEAD
+﻿using System.Threading;
+using System.Web.Mvc;
+using Quoridors.Models;
+=======
+﻿using System.Web.Mvc;
+using Quoridors.Models.Database;
+using Quoridors.Models.Database.Interfaces;
+>>>>>>> f9b76cc6a67f9a838c60c939c29a90339acf696e
+using Quoridors.Models.DatabaseModels;
+using Quoridors.Models.Interfaces;
+
+namespace Quoridors.Controllers
+{
+    public class GameController : Controller
+    {
+        private readonly IBoardStateUpdater _boardStateUpdater;
+        private readonly IGameFactory _gameFactory;
+        private readonly IBoardToJsonMapper _boardToJsonMapper;
+        private readonly IWallRepository _wallRepository;
+        private readonly IPositionRepository _positionRepository;
+
+<<<<<<< HEAD
+        //public GameController(string[][] board)
+        //{
+        //    Board = board;
+        //}
+=======
+        public GameController(IBoardStateUpdater boardStateUpdater, IGameFactory gameFactory, IBoardToJsonMapper boardToJsonMapper, IWallRepository wallRepository, IPositionRepository positionRepository)
+        {
+            _boardStateUpdater = boardStateUpdater;
+            _gameFactory = gameFactory;
+            _boardToJsonMapper = boardToJsonMapper;
+            _wallRepository = wallRepository;
+            _positionRepository = positionRepository;
+        }
+>>>>>>> f9b76cc6a67f9a838c60c939c29a90339acf696e
+
+        [HttpGet]
+        public JsonResult NewGame()
+        {            
+            var game = _gameFactory.New();           
+            return Json(game, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult MovePlayer(PositionDb position)
+        {
+            var game = _gameFactory.Load(position.GameId);
+            var newBoard = _boardStateUpdater.MovePlayer(position, game).Board;
+            _positionRepository.Update(position);
+            var boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard);
+            return Json(boardToReturn, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult PlaceWall(WallDb wall)
+        {
+            var game = _gameFactory.Load(wall.GameId);
+            var newBoard = _boardStateUpdater.AddWall(wall, game).Board;
+            _wallRepository.CreateWall(wall);
+            var boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard);
+            return Json(boardToReturn, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

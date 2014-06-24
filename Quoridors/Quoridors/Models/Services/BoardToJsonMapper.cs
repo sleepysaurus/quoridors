@@ -8,9 +8,9 @@ namespace Quoridors.Models.Services
 {
     public class BoardToJsonMapper : IBoardToJsonMapper
     {
-        private readonly PositionRepository _positionRepository;
+        private readonly IPositionRepository _positionRepository;
 
-        public BoardToJsonMapper(PositionRepository positionRepository)
+        public BoardToJsonMapper(IPositionRepository positionRepository)
         {
             _positionRepository = positionRepository;
         }

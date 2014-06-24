@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+using System.Web.Mvc;
 using Quoridors.Models;
 using Quoridors.Models.Database;
 using Quoridors.Models.Database.Interfaces;
@@ -15,7 +15,8 @@ namespace Quoridors.Controllers
         private readonly IWallRepository _wallRepository;
         private readonly IPositionRepository _positionRepository;
 
-        public GameController(IBoardStateUpdater boardStateUpdater, IGameFactory gameFactory, IBoardToJsonMapper boardToJsonMapper, IWallRepository wallRepository, IPositionRepository positionRepository)
+        public GameController(IBoardStateUpdater boardStateUpdater, IGameFactory gameFactory,
+            IBoardToJsonMapper boardToJsonMapper, IWallRepository wallRepository, IPositionRepository positionRepository)
         {
             _boardStateUpdater = boardStateUpdater;
             _gameFactory = gameFactory;

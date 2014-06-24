@@ -1,0 +1,24 @@
+﻿using System;
+
+namespace Quoridors.Models
+{
+    [Serializable]
+    public class Player
+    {
+        public int PlayerNumber { get; set; }
+        public Position Position { get; set; }
+        public string PlayerName { get; set; }
+<<<<<<< HEAD
+        
+        public Player(int playerNumber, string playerName)
+=======
+
+        public Player(int playerNumber, string playerName, Position position)
+>>>>>>> f9b76cc6a67f9a838c60c939c29a90339acf696e
+        {
+            PlayerNumber = playerNumber;
+            PlayerName = playerName;
+            Position = position;
+        }
+    }
+}
