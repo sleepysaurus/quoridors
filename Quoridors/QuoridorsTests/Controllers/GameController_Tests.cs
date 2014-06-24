@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Quoridors.Controllers;
+using Quoridors.Models;
 using Quoridors.Models.Interfaces;
 
 namespace QuoridorsTests.Controllers
@@ -22,9 +24,11 @@ namespace QuoridorsTests.Controllers
 
             // Act
             // TODO
-
+            var cut = mock.Setup(x => x.New()).Returns(new Game());
+            var expected = sut.NewGame();
             // Assert
-            mock.Verify(blah blah blah);
+            Assert.IsInstanceOf(typeof(JsonResult), expected);
+            
         }
 
         // MovePlayer
