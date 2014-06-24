@@ -8,7 +8,6 @@ namespace Quoridors.Models
     public interface IBoardStateUpdater
     {
         Game AddWall(WallDb wallposition, Game game);
-        Game MovePlayer(Move move, Game game);
         void UpdateBoardToSavedState(Game game);
     }
 
@@ -48,12 +47,11 @@ namespace Quoridors.Models
             return game;
         }
 
-        // Why do we need this method? BA Probs to get the board back from empty into the current state 
         public void UpdateBoardToSavedState(Game game)
         {
-            var playerPositions = _positionRepository.GetByGame(game.Id).ToList();// TODO add an Id to Game
+            var playerPositions = _positionRepository.GetByGame(game.Id).ToList();
 
-            var wallPositions = _wallRepository.All().Where(wall => wall.GameId ==game.Id).ToList(); ; // TODO add a GetById to wallRepository
+            var listOfWalls = _wallRepository.GetByGameId(game.Id).ToList();
 
 
             foreach (var player in playerPositions)
@@ -61,18 +59,16 @@ namespace Quoridors.Models
                 game.Board[player.XPos * 2 + 1][player.YPos * 2 + 1] = player.Id.ToString();
             }
 
-            foreach (var wall in wallPositions)
+            foreach (var wall in listOfWalls)
             {
                 if (wall.Direction == 0) //then wall is facing down.
                 {
                     game.Board[wall.XPos * 2 + 1][wall.YPos * 2] = "W";
                     game.Board[wall.XPos * 2 + 3][wall.YPos * 2] = "W";
                 }
-                if (wall.Direction == 1)   //then wall is going right.
-                {
-                    game.Board[wall.XPos * 2][wall.YPos * 2 + 1] = "W";
-                    game.Board[wall.XPos * 2][wall.YPos * 2 + 3] = "W";
-                }
+                if (wall.Direction != 1) continue;
+                game.Board[wall.XPos * 2][wall.YPos * 2 + 1] = "W";
+                game.Board[wall.XPos * 2][wall.YPos * 2 + 3] = "W";
             }
         } 
     }
