@@ -59,7 +59,7 @@ namespace QuoridorsTests.Models.Services
         }
 
         [Test]
-        public void The_New_method_creates_a_game_with_turns_at_0()
+        public void The_New_method_creates_a_game_with_turns_at_1()
         {
             //Arrange
 
@@ -67,7 +67,7 @@ namespace QuoridorsTests.Models.Services
             var newgame = Gamefactory.New();
 
             // Assert
-            Assert.That(newgame.Turn == 0);
+            Assert.That(newgame.Turn == 1);
         }
 
         [Test]
