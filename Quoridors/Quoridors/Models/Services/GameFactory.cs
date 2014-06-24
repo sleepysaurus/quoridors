@@ -42,7 +42,6 @@ namespace Quoridors.Models.Services
         {
             var gameDb = _gameRepository.GetById(gameId);
             var game = _dbMapperToGame.MappingGameFromDatabase(gameDb);
-            _boardStateUpdater.UpdateBoardToSavedState(game);
             return game;
         }
     }
