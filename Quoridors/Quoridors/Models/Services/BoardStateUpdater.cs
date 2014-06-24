@@ -46,7 +46,7 @@ namespace Quoridors.Models.Services
         public Game MovePlayer(PositionDb position, Game game)
         {
             var originalPosition = _playerRepository.GetPosition(position.PlayerId);
-            game.Board[originalPosition.Horizontal*2][originalPosition.Vertical*2] = BoardCellStatus.NoPlayer;
+            game.Board[originalPosition.XPos*2][originalPosition.YPos*2] = BoardCellStatus.NoPlayer;
             game.Board[position.XPos*2][position.YPos*2] = BoardCellStatus.Player1; // If loop to check which player is being moved
             return game;
         }
