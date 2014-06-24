@@ -169,12 +169,14 @@
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardToJsonMapper.cs" />
     <Compile Include="Models\Brick.cs" />
+    <Compile Include="Models\Database\Interfaces\IGameRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IPositionRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IWallRepository.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\BoardStateUpdater.cs" />
+    <Compile Include="Models\GameDbMapperToGame.cs" />
     <Compile Include="Models\GameFactory.cs" />
     <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Player.cs" />
