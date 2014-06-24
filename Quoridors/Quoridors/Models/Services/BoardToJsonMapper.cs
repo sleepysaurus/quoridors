@@ -4,7 +4,7 @@ using System.Linq;
 using Quoridors.Models.Database;
 using Quoridors.Models.Interfaces;
 
-namespace Quoridors.Models
+namespace Quoridors.Models.Services
 {
     public class BoardToJsonMapper : IBoardToJsonMapper
     {
@@ -33,8 +33,8 @@ namespace Quoridors.Models
 
                     // i and z MIGHT be the wrong way around below
                     listOfBricks.Add(i%2 != 0
-                        ? new Brick() {TopOrLeft = "top", XPos = (int) Math.Ceiling((decimal)i/2), YPos = z/2}
-                        : new Brick() {TopOrLeft = "left", XPos = i/2, YPos = (int) Math.Ceiling((decimal)z/2)});
+                        ? new Brick( (int) Math.Ceiling((decimal)i/2),  z/2, "top")
+                        : new Brick(i/2, (int) Math.Ceiling((decimal)z/2), "left")); // BA should these be strings? (Question not leading question :))
                 }
             }
 
@@ -43,7 +43,7 @@ namespace Quoridors.Models
 
         public List<PositionJson> GetListOfPlayerPositions()
         {
-            var positionRepo = new PositionRepository();
+            var positionRepo = new PositionRepository(); // BA move to constructor
             var listOfPositionsFromRepo = positionRepo.All();
 
             return listOfPositionsFromRepo.Select(positon => new PositionJson() {PlayerId = positon.PlayerId, XPos = positon.XPos, YPos = positon.YPos}).ToList();

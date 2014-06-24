@@ -6,7 +6,7 @@ using Quoridors.Models;
 
 namespace Quoridors.Controllers
 {
-    public class MovePlayer
+    public class MovePlayer // BA delete
     {
         public MovePlayer(Move newPosition)
         {

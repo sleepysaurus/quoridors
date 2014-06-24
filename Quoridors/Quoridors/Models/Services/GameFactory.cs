@@ -2,6 +2,7 @@
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 using Quoridors.Models.Interfaces;
+using Quoridors.Models.Services;
 
 namespace Quoridors.Models
 {
@@ -18,7 +19,7 @@ namespace Quoridors.Models
             _dbMapperToGame = dbMapperToGame;
         }
 
-        public Game New()
+        public Game New() // BA pass in the player names ;)
         {
             var gameId = _gameRepository.CreateGame();
             var player1 = new Player(1, "John");

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Quoridors.Models
 {
-    public class PositionJson
+    public class PositionJson // BA consitency of naming
     {
         public int XPos { get; set; }
         public int YPos { get; set; }

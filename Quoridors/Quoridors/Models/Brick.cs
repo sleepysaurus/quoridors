@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Quoridors.Models
+﻿namespace Quoridors.Models
 {
     public class Brick
     {
-        public int XPos { get; set; }
-        public int YPos { get; set; }
-        public string TopOrLeft { get; set; }
+        public Brick(int xPos, int yPos, string topOrLeft)
+        {
+            XPos = xPos;
+            YPos = yPos;
+            TopOrLeft = topOrLeft;
+        }
+
+        public int XPos { get; private set; }
+        public int YPos { get; private set; }
+        public string TopOrLeft { get; private set; }
     }
 }

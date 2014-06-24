@@ -3,9 +3,9 @@ using Quoridors.Models.Database;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
-namespace Quoridors.Models
+namespace Quoridors.Models.Services
 {
-    public interface IBoardStateUpdater
+    public interface IBoardStateUpdater // BA move out into its own file
     {
         Game AddWall(WallDb wallposition, Game game);
         void UpdateBoardToSavedState(Game game);
@@ -27,7 +27,7 @@ namespace Quoridors.Models
         {
             if (wallposition.Direction == 0) //then wall is facing down.
             {
-                game.Board[wallposition.XPos * 2 + 1][wallposition.YPos * 2] = "W";
+                game.Board[wallposition.XPos * 2 + 1][wallposition.YPos * 2] = "W";// BA use a const or an enum rather than a string
                 game.Board[wallposition.XPos * 2 + 3][wallposition.YPos * 2] = "W";
             }
 
@@ -42,8 +42,8 @@ namespace Quoridors.Models
 
         public Game MovePlayer(PositionDb position, Game game)
         {
-            var originalPosition = new PlayerRepository().GetPosition(position.PlayerId);
-            game.Board[originalPosition.Horizontal][originalPosition.Vertical] = "0";
+            var originalPosition = new PlayerRepository().GetPosition(position.PlayerId);// BA move this to the constructor
+            game.Board[originalPosition.Horizontal][originalPosition.Vertical] = "0"; // BA ditto
             game.Board[position.XPos][position.YPos] = "1";
             return game;
         }
@@ -64,7 +64,7 @@ namespace Quoridors.Models
             {
                 if (wall.Direction == 0) //then wall is facing down.
                 {
-                    game.Board[wall.XPos * 2 + 1][wall.YPos * 2] = "W";
+                    game.Board[wall.XPos * 2 + 1][wall.YPos * 2] = "W"; // BA const or enum
                     game.Board[wall.XPos * 2 + 3][wall.YPos * 2] = "W";
                 }
                 if (wall.Direction != 1) continue;
