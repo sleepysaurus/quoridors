@@ -1,4 +1,5 @@
 ﻿using Quoridors.Models.Database.Interfaces;
+using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models
 {
@@ -16,7 +17,15 @@ namespace Quoridors.Models
 
         public Game New()
         {
-            return new Game();
+            var gameDb = _gameRepository.CreateGame();
+            var game = new Game
+            {
+                Id = gameDb,
+                Turn = 0
+            };
+            
+            //save to new game db
+            return game;
         }
 
         public Game Load(int gameId)
