@@ -11,105 +11,6 @@
         </div>
         <div>
             <table class="gameBoard">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
             </table>
         </div>
         <div>
@@ -145,17 +46,32 @@
     
     $(document).ready(function() {
         
-        NewGame();
+        newGame();
+        setup();
         
-        $(".gameBoard td").click(function() {
-            $(this).addClass("active");
-        });
+        $(".gameBoard td").click(function () {
+            $(".gameBoard td").removeClass("active");
 
-        function NewGame() {
+            $(this).addClass("active");
+            var h = $(this).data("hpoz");
+
+
+        });
+        //
+        function newGame() {
             var newGamePromise = $.ajax("/Game/NewGame");
             newGamePromise.done(processNewGameData);
         }
     });
 
-
+    function setup() {
+        for (var horizontal = 0; horizontal < 9; horizontal++) {
+            var row = $("<tr>");
+            for(var vertical = 0; vertical < 9; vertical++){
+                row.append($("<td data-xPoz=" + horizontal + " " + "data-yPoz=" + vertical + "></td>"));
+            }
+            $(".gameBoard").append(row);   
+        }
+    };
+        
 </script>
