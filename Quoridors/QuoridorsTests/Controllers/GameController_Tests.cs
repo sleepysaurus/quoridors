@@ -51,7 +51,7 @@ namespace QuoridorsTests.Controllers
             gameMock.Verify(x => x.Load(It.IsAny<int>()), Times.Exactly(1));
             boardMock.Verify(x => x.MovePlayer(It.IsAny<PositionDb>(), It.IsAny<Game>()), Times.Exactly(1));
             positionMock.Verify(x => x.Update(It.IsAny<PositionDb>()), Times.Exactly(1));
-            boardToJsonMock.Verify(x => x.CreateBoardObject(It.IsAny<BoardCellStatus[][]>()),Times.Exactly(1));
+            boardToJsonMock.Verify(x => x.CreateBoardObject(It.IsAny<BoardCellStatus[][]>(), It.IsAny<Game>()),Times.Exactly(1));
         }
     }
 }

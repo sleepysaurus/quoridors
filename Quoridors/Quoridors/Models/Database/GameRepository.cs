@@ -29,5 +29,6 @@ namespace Quoridors.Models.Database
         {
             return ExecuteReadStoredProcedure("GetAllGame", new SqlParameter[]{});
         }
+
     }
 }

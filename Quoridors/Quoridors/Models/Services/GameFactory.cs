@@ -30,7 +30,7 @@ namespace Quoridors.Models.Services
             var game = new Game
             {
                 Id = gameId,
-                Turn = 0,
+                Turn = 1,
                 Players = players
             };
             
