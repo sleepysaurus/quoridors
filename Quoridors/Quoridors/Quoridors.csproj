@@ -189,7 +189,7 @@
     <Compile Include="Models\Database\Interfaces\IRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IWallRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IPositionRepository.cs" />
-    <Compile Include="Models\Direction.cs" />
+    <Compile Include="Models\BoardCellStatus.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Services\BoardStateUpdater.cs" />
     <Compile Include="Models\Services\GameDbMapperToGame.cs" />
