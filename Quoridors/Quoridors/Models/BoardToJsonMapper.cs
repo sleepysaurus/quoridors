@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Quoridors.Models.Database;
 
@@ -19,7 +20,6 @@ namespace Quoridors.Models
         {
             var listOfBricks = new List<Brick>();
 
-            // Fix this
             for (var i = 0; i < board.Length; i++)
             {
                 for (var z = 0; z < board.Length; z++)
@@ -30,9 +30,10 @@ namespace Quoridors.Models
                         continue;
                     }
 
+                    // i and z MIGHT be the wrong way around below
                     listOfBricks.Add(i%2 != 0
-                        ? new Brick() {TopOrLeft = "top", XPos = i*2 - 1, YPos = i*2}
-                        : new Brick() {TopOrLeft = "left", XPos = i*2, YPos = i*2 - 1});
+                        ? new Brick() {TopOrLeft = "top", XPos = (int) Math.Ceiling((decimal)i/2), YPos = z/2}
+                        : new Brick() {TopOrLeft = "left", XPos = i/2, YPos = (int) Math.Ceiling((decimal)z/2)});
                 }
             }
 

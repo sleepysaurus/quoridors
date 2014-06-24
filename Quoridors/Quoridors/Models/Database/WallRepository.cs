@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
@@ -28,6 +29,12 @@ namespace Quoridors.Models.Database
         public override IEnumerable<WallDb> All()
         {
             return ExecuteReadStoredProcedure("GetAllWall", new SqlParameter[] { });
+        }
+
+        // ToDo Add a get by game id method that takes gameId as parameter
+        public List<WallDb> GetByGameId(int gameId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
