@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
@@ -21,7 +22,7 @@ namespace Quoridors.Models.Database
 
         public GameDb GetById(int gameId)
         {
-            throw new NotImplementedException("add this method to interfaces and such");
+            return ExecuteReadStoredProcedure("GetGameById", new SqlParameter[] { }).First();
         }
 
         public override IEnumerable<GameDb> All()
