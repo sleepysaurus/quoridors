@@ -1,0 +1,78 @@
+﻿<body class="container clearfix">
+    <div class="box">
+        <div>
+            <h1 id="logo">Corridor</h1>
+        </div>
+        <div class="grid_1">
+            <span id="player1Id">Player1</span>
+        </div>
+        <div class="grid_1">
+            <span id="player2Id">Player2</span>
+        </div>
+        <div>
+            <table class="gameBoard">
+            </table>
+        </div>
+        <div>
+            <textarea id="msg" rows="3" cols="50" placeholder="Game messages..."></textarea>
+        </div>
+        <div>
+            <button>Move</button>
+            <button>Vertical Wall</button>
+            <button>Horizontal Wall</button>
+        </div>
+    </div>
+</body>
+
+@*<script id="entry-template" type="text/x-handlebars-template">
+
+</script>
+
+ var handleBarSource = $("#entry-template").html();
+                var template = Handlebars.compile(handleBarSource);
+
+                var html = template(player);*@
+
+<script type="text/javascript">
+
+    var processNewGameData = function(data) {
+        $.each(data, function(index, player) {
+            var playerId = player.PlayerNumber;
+            $("#player" + playerId + "Id").html(player.PlayerName);
+        });
+    }
+    
+    
+    
+    $(document).ready(function() {
+        
+        newGame();
+        setup();
+        
+        $(".gameBoard td").click(function () {
+
+            $(".gameBoard td").removeClass("player2");
+
+            $(this).addClass("player2");
+            var h = $(this).data("hpoz");
+
+
+        });
+
+        function newGame() {
+            var newGamePromise = $.ajax("/Game/NewGame");
+            newGamePromise.done(processNewGameData);
+        }
+    });
+
+    function setup() {
+        for (var horizontal = 0; horizontal < 9; horizontal++) {
+            var row = $("<tr>");
+            for(var vertical = 0; vertical < 9; vertical++){
+                row.append($("<td data-xPoz=" + horizontal + " " + "data-yPoz=" + vertical + "></td>"));
+            }
+            $(".gameBoard").append(row);   
+        }
+    };
+        
+</script>

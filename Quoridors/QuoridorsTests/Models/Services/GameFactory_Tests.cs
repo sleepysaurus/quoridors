@@ -1,7 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
+using Quoridors.Models;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
+using Quoridors.Models.Interfaces;
 using Quoridors.Models.Services;
 
 namespace QuoridorsTests.Models.Services
@@ -24,7 +26,7 @@ namespace QuoridorsTests.Models.Services
             Assert.That(newgame.Board.Length == 17);
         }
 
-        [Test] 
+        [Test]
         public void The_arrays_for_the_game_inside_the_New_method_are_also_the_correct_length()
         {
             // Arrange
@@ -44,6 +46,7 @@ namespace QuoridorsTests.Models.Services
             var gameRepoforId = Mock.Of<IGameRepository>();
             Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(7);
             var gamefactory = new GameFactory(null, gameRepoforId, null);
+
             //Act
             var newgame = gamefactory.New();
 
@@ -72,7 +75,29 @@ namespace QuoridorsTests.Models.Services
             var newgame = Gamefactory.New();
 
             // Assert
-            Assert.That(newgame.Players.Count == 2 );
-        } 
+            Assert.That(newgame.Players.Count == 2);
+        }
+
+        [Test]
+        public void The_Load_method_creates_a_Game_object()
+        {
+            //Arrange
+            var placeholderGame = new Game() {Id = 7};
+            var gameRepoforId = Mock.Of<IGameRepository>();
+            Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(7);
+            var gameMapper = Mock.Of<IGameDbMapperToGame>();
+            Mock.Get(gameMapper)
+                .Setup(mapper => mapper.MappingGameFromDatabase(It.IsAny<GameDb>()))
+                .Returns(placeholderGame);
+            var gameStateUpdater = Mock.Of<IBoardStateUpdater>();
+            var gamefactory = new GameFactory(gameStateUpdater, gameRepoforId, gameMapper);
+
+            //Act
+            var newgame = gamefactory.Load(7);
+
+            //Assert
+            Assert.IsInstanceOf<Game>(newgame);
+
+        }
     }
 }

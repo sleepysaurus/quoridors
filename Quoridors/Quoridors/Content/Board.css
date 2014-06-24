@@ -1,0 +1,80 @@
+﻿body {
+    font-family: sans-serif;
+    background: url("../Content/image/darkwood.png") repeat;
+    text-align: center;
+}
+
+button {
+    font-weight: 700;
+    border-radius: 5px;
+    background-color: #369196;
+    border: none;
+    height: 25px;
+    margin-top: -10px;
+}
+
+button:hover {
+    background-color: #48C0C7;
+    border: none;
+}
+
+#logo {
+    font-family: 'Lobster Two', cursive;
+    font-size: 100px;
+    color: black;
+    margin: 0px;
+}
+
+.box {
+    background: url("../Content/image/lightwood.png") repeat;
+    height: 900px;
+}
+
+
+.gameBoard {
+    width: 660px;
+    /*margin: auto;*/
+    margin-bottom: 3px;
+}
+
+.container {
+    background-color: black;
+}
+
+#msg {
+    margin: 3px;
+}
+
+table {
+    border: 1px black solid;
+    width: 1000px;
+}
+
+
+td {
+    background-color: #969696;
+    border: 1px #312A3B solid;
+    height: 70px;
+    width: 70px;
+    empty-cells: show;
+}
+
+.player1 {
+    background-color: #7F0000;
+}
+
+.player2 {
+    background-color: #269DBC;
+}
+
+#player1Id {
+    float: left;
+}
+
+#player1Id {
+    float: right;
+}
+
+.active {
+    background-color: #7F0000;
+}
