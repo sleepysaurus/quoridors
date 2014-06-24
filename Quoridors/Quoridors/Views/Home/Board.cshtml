@@ -133,25 +133,29 @@
                 var html = template(player);*@
 
 <script type="text/javascript">
+
+    var processNewGameData = function(data) {
+        $.each(data, function(index, player) {
+            var playerId = player.PlayerNumber;
+            $("#player" + playerId + "Id").html(player.PlayerName);
+        });
+    }
     
-    $(document).ready(function () {
+    
+    
+    $(document).ready(function() {
+        
         NewGame();
-            
-        $(".gameBoard td").click(function () {
+        
+        $(".gameBoard td").click(function() {
             $(this).addClass("active");
         });
+
+        function NewGame() {
+            var newGamePromise = $.ajax("/Game/NewGame");
+            newGamePromise.done(processNewGameData);
+        }
     });
 
-    function NewGame() {
-
-        var newGamePromise = $.ajax("/Game/NewGame");
-
-        newGamePromise.done(function(data) {
-                 $.each(data, function(index, player) {
-                var playerId = player.PlayerNumber;
-                $("#player" + playerId +"Id").html(player.PlayerName);
-            });
-        });
-    };
 
 </script>
