@@ -6,10 +6,20 @@ namespace Quoridors.Models
 {
     public class BoardToJsonMapper
     {
+        public Board CreateBoardObject(string[][] board)
+        {
+           return new Board
+            {
+                ListOfBricks = GetListOfBricks(board),
+                ListOfPlayerPositions = GetListOfPlayerPositions()
+            };
+        }
+
         public List<Brick> GetListOfBricks(string[][] board)
         {
             var listOfBricks = new List<Brick>();
 
+            // Fix this
             for (var i = 0; i < board.Length; i++)
             {
                 for (var z = 0; z < board.Length; z++)

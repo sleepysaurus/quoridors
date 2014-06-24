@@ -40,11 +40,11 @@ namespace Quoridors.Models
             return game;
         }
 
-        public Game MovePlayer(Move move, Game game)
+        public Game MovePlayer(PositionDb position, Game game)
         {
-            var originalPosition = new PlayerRepository().GetPosition(move.PlayerNumber);
+            var originalPosition = new PlayerRepository().GetPosition(position.PlayerId);
             game.Board[originalPosition.Horizontal][originalPosition.Vertical] = "0";
-            game.Board[move.NewPosition.Horizontal][move.NewPosition.Vertical] = "1";
+            game.Board[position.XPos][position.YPos] = "1";
             return game;
         }
 

@@ -16,7 +16,7 @@ namespace Quoridors.Models.Database
                 reader.GetInt32(reader.GetOrdinal("game_id")));
         }
 
-        protected PositionDb Update(PositionDb toUpdate)
+        public PositionDb Update(PositionDb toUpdate)
         {
             ExecuteStoredProcedure("CreatePlayer", toUpdate,
                 new SqlParameter[] { new SqlParameter("@PlayerId", toUpdate.Id), new SqlParameter("@XPos", toUpdate.XPos), new SqlParameter("@YPos", toUpdate.YPos)});
