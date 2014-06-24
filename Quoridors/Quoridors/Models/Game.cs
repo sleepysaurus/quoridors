@@ -20,29 +20,38 @@ namespace Quoridors.Models
 
             // TODO DRY this shit up
             // TODO do you want to do this every time a board is created, you'll end up with a new, empty board for every HttpRequest. You will need to do this somewhere? BoardFactory? Maybe?
-            Board = new BoardCellStatus[][]{};
+            Board = new BoardCellStatus[17][];
+            CreateBoard();
+
+        }
+
+        public void CreateBoard()
+        {
             for (int i = 0; i < 17; i++)
             {
-                if (i%2 == 0)
+                Board[i] = new BoardCellStatus[17];
+                if (i % 2 == 0)
                 {
-                    Board[i] = new[]
+                    for (var z = 0; z < 17; z++)
                     {
-                        BoardCellStatus.Empty, BoardCellStatus.NoWall, BoardCellStatus.Empty, BoardCellStatus.NoWall,
-                        BoardCellStatus.Empty, BoardCellStatus.NoWall, BoardCellStatus.Empty, BoardCellStatus.NoWall,
-                        BoardCellStatus.Empty, BoardCellStatus.NoWall, BoardCellStatus.Empty,
-                        BoardCellStatus.NoWall, BoardCellStatus.Empty, BoardCellStatus.NoWall, BoardCellStatus.Empty,
-                        BoardCellStatus.NoWall, BoardCellStatus.Empty
-                    };
+                        if (z%2 == 0)
+                        {
+                            Board[i][z] = BoardCellStatus.Empty;
+                        }
+                        else
+                        {
+                            Board[i][z] = BoardCellStatus.NoWall;
+                        }
+                    }
                 }
-                if (i%2 == 1)
+                if (i % 2 == 1)
                 {
-                    for(int z =0; z < 17; z++)
+                    for (int z = 0; z < 17; z++)
                     {
                         Board[i][z] = BoardCellStatus.NoWall;
                     }
                 }
             }
-
         }
     }
 }
