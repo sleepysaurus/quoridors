@@ -8,7 +8,10 @@ using Moq;
 using NUnit.Framework;
 using Quoridors.Controllers;
 using Quoridors.Models;
+using Quoridors.Models.Database;
+using Quoridors.Models.DatabaseModels;
 using Quoridors.Models.Interfaces;
+using Quoridors.Models.Services;
 
 namespace QuoridorsTests.Controllers
 {
@@ -23,18 +26,32 @@ namespace QuoridorsTests.Controllers
             var sut = new GameController(null, mock.Object, null, null, null);
 
             // Act
-            // TODO
-            var cut = mock.Setup(x => x.New()).Returns(new Game());
-            var expected = sut.NewGame();
+            mock.Setup(x => x.New()).Returns(new Game());
+            sut.NewGame();
+
             // Assert
-            Assert.IsInstanceOf(typeof(JsonResult), expected);
-            
+            mock.Verify(x=>x.New(), Times.Exactly(1));
         }
 
-        // MovePlayer
-        // The game is loaded from the repository
-        // The board state is onlyupdated once
-        // The new position is saved to the repository exactly once
-        // The board mapper is used to create the return value
+        [Test]
+        public void The_move_player_method_hits_each_method_within_it_once()
+        {
+            // Arrange
+            var gameMock = new Mock<IGameFactory>();
+            var boardMock = new Mock<IBoardStateUpdater>();
+            var positionMock = new Mock<IPositionRepository>();
+            var boardToJsonMock = new Mock<IBoardToJsonMapper>();
+            boardMock.Setup(x => x.MovePlayer(It.IsAny<PositionDb>(), It.IsAny<Game>())).Returns(new Game());
+            var sut = new GameController(boardMock.Object, gameMock.Object, boardToJsonMock.Object, null, positionMock.Object);
+            
+            // Act
+            sut.MovePlayer(new PositionDb(1,0,4,2));
+
+            // Assert
+            gameMock.Verify(x => x.Load(It.IsAny<int>()), Times.Exactly(1));
+            boardMock.Verify(x => x.MovePlayer(It.IsAny<PositionDb>(), It.IsAny<Game>()), Times.Exactly(1));
+            positionMock.Verify(x => x.Update(It.IsAny<PositionDb>()), Times.Exactly(1));
+            boardToJsonMock.Verify(x => x.CreateBoardObject(It.IsAny<BoardCellStatus[][]>()),Times.Exactly(1));
+        }
     }
 }
