@@ -33,7 +33,7 @@ namespace QuoridorsTests.Models.Services
             Assert.That(newgame.Board.Length == 17);
         }
 
-        [Test] 
+        [Test]
         public void The_arrays_for_the_game_inside_the_New_method_are_also_the_correct_length()
         {
             // Arrange
@@ -62,7 +62,7 @@ namespace QuoridorsTests.Models.Services
         }
 
         [Test]
-        public void The_New_method_creates_a_game_with_turns_at_0()
+        public void The_New_method_creates_a_game_with_turns_at_1()
         {
             //Arrange
 
@@ -70,7 +70,7 @@ namespace QuoridorsTests.Models.Services
             var newgame = Gamefactory.New();
 
             // Assert
-            Assert.That(newgame.Turn == 0);
+            Assert.That(newgame.Turn == 1);
         }
 
         [Test]
@@ -82,7 +82,6 @@ namespace QuoridorsTests.Models.Services
             var newgame = Gamefactory.New();
 
             // Assert
-<<<<<<< HEAD
             Assert.That(newgame.Players.Count == 2);
         }
 
@@ -90,11 +89,13 @@ namespace QuoridorsTests.Models.Services
         public void The_Load_method_creates_a_Game_object()
         {
             //Arrange
-            var placeholderGame = new Game(){Id = 7};
+            var placeholderGame = new Game() {Id = 7};
             var gameRepoforId = Mock.Of<IGameRepository>();
             Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(7);
             var gameMapper = Mock.Of<IGameDbMapperToGame>();
-            Mock.Get(gameMapper).Setup(mapper => mapper.MappingGameFromDatabase(It.IsAny<GameDb>())).Returns(placeholderGame);
+            Mock.Get(gameMapper)
+                .Setup(mapper => mapper.MappingGameFromDatabase(It.IsAny<GameDb>()))
+                .Returns(placeholderGame);
             var gameStateUpdater = Mock.Of<IBoardStateUpdater>();
             var gamefactory = new GameFactory(gameStateUpdater, gameRepoforId, gameMapper);
 
@@ -105,20 +106,5 @@ namespace QuoridorsTests.Models.Services
             Assert.IsInstanceOf<Game>(newgame);
 
         }
-
-        [Test]
-        public void The_Load_method_generates_a_correct_gameboard_for_given_DB_data()
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-
-        }   
-=======
-            Assert.That(newgame.Players.Count == 2 );
-        } 
->>>>>>> 1bf2a083c6d35e5d7ba24ec899f0d487b237ed93
     }
 }
