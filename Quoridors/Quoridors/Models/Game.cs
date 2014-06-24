@@ -1,9 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Ajax.Utilities;
-using Quoridors.Models.Database;
-using Quoridors.Models.Database.Interfaces;
-using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models
 {
