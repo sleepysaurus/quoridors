@@ -169,6 +169,7 @@
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardToJsonMapper.cs" />
     <Compile Include="Models\Brick.cs" />
+    <Compile Include="Models\Database\Interfaces\IGameRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IPositionRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IRepository.cs" />
     <Compile Include="Models\Database\Interfaces\IWallRepository.cs" />

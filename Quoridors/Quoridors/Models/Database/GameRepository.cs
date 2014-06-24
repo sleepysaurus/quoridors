@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public class GameRepository : Repository<GameDb>
+    public class GameRepository : Repository<GameDb>, IGameRepository
     {
         public override GameDb NewModel(SqlDataReader reader)
         {
             return new GameDb();
         }
 
-        protected int CreateGame()
+        public int CreateGame()
         {
             ExecuteStoredProcedure("CreateGame", new GameDb(), new SqlParameter[]{});
             return GetLastId();
