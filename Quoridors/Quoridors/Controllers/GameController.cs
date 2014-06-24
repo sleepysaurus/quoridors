@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading;
+using System.Web.Mvc;
 using Quoridors.Models;
 using Quoridors.Models.DatabaseModels;
 
@@ -9,14 +10,15 @@ namespace Quoridors.Controllers
         public string[][] Board { get; set; }
         private readonly JsonToBoardMapper _boardMapper = new JsonToBoardMapper();
 
-        public GameController(string[][] board)
-        {
-            Board = board;
-        }
+        //public GameController(string[][] board)
+        //{
+        //    Board = board;
+        //}
 
         [HttpGet]
         public JsonResult NewGame()
         {
+            Thread.Sleep(1000);
             var player1 = new Player(1, "John");
             var player2 = new Player(2, "Samantha");
             var players = new Player[]

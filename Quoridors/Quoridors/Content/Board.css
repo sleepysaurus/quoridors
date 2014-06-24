@@ -30,7 +30,7 @@ button:hover {
 }
 
 
-.game_board {
+.gameBoard {
     width: 660px;
     margin: auto;
     margin-bottom: 20px;
@@ -38,6 +38,10 @@ button:hover {
 
 .container {
     background-color: black;
+}
+
+#msg {
+    margin: 10px;
 }
 
 table {
@@ -60,12 +64,20 @@ tr {
     background-color: #969696;
 }
 
-.player_1 {
+.player1 {
     background-color: #7F0000;
 }
 
-.player_2 {
+.player2 {
     background-color: #1176F6;
+}
+
+#player1Id {
+    float: left;
+}
+
+#player1Id {
+    float: right;
 }
 
 .active {

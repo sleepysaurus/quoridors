@@ -3,8 +3,14 @@
         <div>
             <h1 id="logo">Corridor</h1>
         </div>
+        <div class="grid_1">
+            <span id="player1Id">Player1</span>
+        </div>
+        <div class="grid_1">
+            <span id="player2Id">Player2</span>
+        </div>
         <div>
-            <table class="game_board">
+            <table class="gameBoard">
                 <tr>
                     <td></td>
                     <td></td>
@@ -105,26 +111,65 @@
                     <td></td>
                 </tr>
             </table>
-            <div>
-                <button>Move</button>
-                <button>Vertical Wall</button>
-                <button>Horizontal Wall</button>
-            </div>
+        </div>
+        <div>
+            <textarea id="msg" rows="5" cols="50" placeholder="Game messages..."></textarea>
+        </div>
+        <div>
+            <button>Move</button>
+            <button>Vertical Wall</button>
+            <button>Horizontal Wall</button>
         </div>
     </div>
 </body>
 
+<script id="entry-template" type="text/x-handlebars-template">
+
+</script>
+
 <script type="text/javascript">
-    $(document).ready(function() {
+    console.log("here i yam");
+    $(document).ready(function () {
+
+        NewGame();
             
-            $('td').click(function () {
+        $(".gameBoard td").click(function () {
             console.log("You clicked me");
 
             console.log("this", this);
             console.log("this2", $(this));
 
-            $(this).addClass('active');
+            $(this).addClass("active");
             
         });
     });
+
+    function NewGame() {
+
+        var newGamePromise = $.ajax("/Game/NewGame");
+
+        newGamePromise.done(function(data) {
+            console.log("new game done", data);
+
+            $.each(data, function(index, player) {
+                console.log(index, player);
+
+                var handleBarSource = $("#entry-template").html();
+                var template = Handlebars.compile(handleBarSource);
+
+                var html = template(player);
+                if (player.PlayerNumber == 1)
+                { 
+
+                    $("#player1Id").html(player.PlayerName);
+                }
+                if (player.PlayerNumber == 2)
+                {
+                    $("#player2Id").html(player.PlayerName);
+                }
+
+            });
+        });
+    };
+
 </script>

@@ -8,7 +8,7 @@ namespace Quoridors.Models
         public int PlayerNumber { get; set; }
         public Position Position { get; set; }
         public string PlayerName { get; set; }
-
+        
         public Player(int playerNumber, string playerName)
         {
             PlayerNumber = playerNumber;
