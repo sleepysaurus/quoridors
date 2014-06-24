@@ -77,6 +77,7 @@
     <Compile Include="Models\Game_Tests.cs" />
     <Compile Include="Models\Services\BoardStateUpdater_Tests.cs" />
     <Compile Include="Models\Services\BoardToJsonMapper_Tests.cs" />
+    <Compile Include="Models\Services\GameDbMapperToGame_Test.cs" />
     <Compile Include="Models\Services\GameFactory_Tests.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

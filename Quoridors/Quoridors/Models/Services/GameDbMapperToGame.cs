@@ -7,12 +7,10 @@ namespace Quoridors.Models.Services
     public class GameDbMapperToGame : IGameDbMapperToGame
     {
         private readonly IBoardStateUpdater _boardStateUpdater;
-        private readonly IGameRepository _gameRepository;
 
-        public GameDbMapperToGame(IBoardStateUpdater boardStateUpdater, IGameRepository gameRepository)
+        public GameDbMapperToGame(IBoardStateUpdater boardStateUpdater)
         {
             _boardStateUpdater = boardStateUpdater;
-            _gameRepository = gameRepository;
         }
 
         public Game MappingGameFromDatabase(GameDb gameDb)
