@@ -9,6 +9,7 @@ namespace Quoridors.Models
     {
         Empty,
         Wall,
+        NoWall,
         Player1,
         Player2
     }
