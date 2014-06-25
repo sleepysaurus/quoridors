@@ -6,5 +6,6 @@ namespace Quoridors.Models.Database.Interfaces
     {
         GameDb CreateGame();
         GameDb GetById(int gameId);
+        void UpdateGame(Game game);
     }
 }

@@ -84,7 +84,7 @@ namespace QuoridorsTests.Models.Services
             var cut = new BoardToJsonMapper(mock.Object);
 
             // Act
-            var result = cut.GetListOfPlayerPositions();
+            var result = cut.GetListOfPlayerPositions(0);
             // Assert
             Assert.IsInstanceOf(typeof(List<PositionJson>), result);
             mock.Verify(x => x.All(), Times.Exactly(1));

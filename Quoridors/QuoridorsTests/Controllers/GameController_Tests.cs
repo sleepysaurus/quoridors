@@ -58,10 +58,11 @@ namespace QuoridorsTests.Controllers
             var gameMock = new Mock<IGameFactory>();
             var boardMock = new Mock<IBoardStateUpdater>();
             var wallMock = new Mock<IWallRepository>();
+            var gameRepoMock = new Mock<IGameRepository>();
             var boardToJsonMock = new Mock<IBoardToJsonMapper>();
             gameMock.Setup(x => x.Load(It.IsAny<int>())).Returns(new Game(1, 1, new BoardFactory().CreateBoard()));
             boardMock.Setup(x => x.AddWall(It.IsAny<WallDb>(), It.IsAny<Game>())).Returns(new Game(1,1,new BoardFactory().CreateBoard()));
-            var sut = new GameController(boardMock.Object, gameMock.Object, boardToJsonMock.Object, wallMock.Object, null, null);
+            var sut = new GameController(boardMock.Object, gameMock.Object, boardToJsonMock.Object, wallMock.Object, null, gameRepoMock.Object);
 
             // Act
             sut.PlaceWall(new WallDb(0, 0, 0, 0));

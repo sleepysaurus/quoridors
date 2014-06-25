@@ -56,6 +56,11 @@ namespace Quoridors.App_Start
             }
         }
 
+        public static IKernel GetKernelForTesting()
+        {
+            return CreateKernel();
+        }
+
         /// <summary>
         /// Load your modules or register your services here!
         /// </summary>

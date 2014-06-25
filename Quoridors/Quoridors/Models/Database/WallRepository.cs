@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
@@ -22,7 +23,8 @@ namespace Quoridors.Models.Database
             ExecuteStoredProcedure("CreateWall", toCreate,
                 new SqlParameter[] { new SqlParameter("@XPos", toCreate.XPos), new SqlParameter("@YPos", toCreate.YPos), 
                 new SqlParameter("@Direction", toCreate.Direction), new SqlParameter("@GameId", toCreate.GameId) });
-            toCreate.Id = GetLastId();
+            var list = ExecuteReadStoredProcedure("GetAllWall", new SqlParameter[] { });
+            toCreate.Id = list.Last().Id;
             return toCreate;
         }
 
@@ -31,10 +33,9 @@ namespace Quoridors.Models.Database
             return ExecuteReadStoredProcedure("GetAllWall", new SqlParameter[] { });
         }
 
-        // ToDo Add a get by game id method that takes gameId as parameter
-        public List<WallDb> GetByGameId(int gameId)
+        public List<WallDb> GetWallByGameId(int gameId)
         {
-            throw new NotImplementedException();
+            return ExecuteReadStoredProcedure("GetWallByGameId", new SqlParameter[] { new SqlParameter("@game_id", gameId) }).ToList();
         }
     }
 }

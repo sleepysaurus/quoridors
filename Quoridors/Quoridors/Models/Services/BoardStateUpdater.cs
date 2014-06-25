@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Quoridors.Models.Database;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
@@ -28,13 +29,16 @@ namespace Quoridors.Models.Services
         // (3,4) right, goes to (5,8) and (5, 10)
         public Game AddWall(WallDb wallposition, Game game)
         {
+            
+            CheckWall(wallposition);
+
             if (wallposition.Direction == 0) //then wall is facing down.
             {
                 game.Board[wallposition.XPos * 2][wallposition.YPos * 2 - 1] = BoardCellStatus.Wall;
                 game.Board[wallposition.XPos * 2 + 2][wallposition.YPos * 2 - 1] = BoardCellStatus.Wall;
             }
 
-            if (wallposition.Direction == 1)   //then wall is going right.
+            if (wallposition.Direction == 1)   //then wall is going right. Doesn't work for wall (0,0)?
             {
                 game.Board[wallposition.XPos * 2 - 1][wallposition.YPos * 2] = BoardCellStatus.Wall;
                 game.Board[wallposition.XPos * 2 - 1][wallposition.YPos * 2 + 2] = BoardCellStatus.Wall;
@@ -45,7 +49,7 @@ namespace Quoridors.Models.Services
 
         public Game MovePlayer(PositionDb position, Game game)
         {
-            var originalPosition = _playerRepository.GetPosition(position.PlayerId);
+            var originalPosition = _positionRepository.GetPositionByPlayerId(position.PlayerId);
             game.Board[originalPosition.XPos*2][originalPosition.YPos*2] = BoardCellStatus.NoPlayer;
             game.Board[position.XPos*2][position.YPos*2] = BoardCellStatus.Player1; // If loop to check which player is being moved
             return game;
@@ -53,8 +57,8 @@ namespace Quoridors.Models.Services
 
         public void UpdateBoardToSavedState(Game game)
         {
-            var playerPositions = _positionRepository.GetByGame(game.Id).ToList();
-            var listOfWalls = _wallRepository.GetByGameId(game.Id).ToList();
+            var playerPositions = _positionRepository.GetPositionByGameId(game.Id).ToList();
+            var listOfWalls = _wallRepository.GetWallByGameId(game.Id).ToList();
 
             foreach (var player in playerPositions)
             {
@@ -72,6 +76,27 @@ namespace Quoridors.Models.Services
                 game.Board[wall.XPos * 2 - 1][wall.YPos * 2] = BoardCellStatus.Wall;
                 game.Board[wall.XPos * 2 - 1][wall.YPos * 2 + 2] = BoardCellStatus.Wall;
             }
-        } 
+        }
+
+        public void CheckWall(WallDb wallposition)
+        {
+            if (wallposition.XPos == 0)
+            {
+                if (wallposition.YPos == 0)
+                {
+                    throw new Exception("Cannot place a wall from this point");
+                }
+
+                if (wallposition.Direction == 0)
+                {
+                    throw new Exception("Cannot place a outside of the board");
+                }
+            }
+
+            if (wallposition.YPos == 0 && wallposition.Direction == 1)
+            {
+                throw new Exception("Cannot place a outside of the board");
+            }
+        }
     }
 }

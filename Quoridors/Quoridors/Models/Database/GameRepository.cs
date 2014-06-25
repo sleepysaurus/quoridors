@@ -23,7 +23,7 @@ namespace Quoridors.Models.Database
 
         public GameDb GetById(int gameId)
         {
-            return ExecuteReadStoredProcedure("GetGameById", new SqlParameter[] { new SqlParameter("@game_id",gameId), }).First(); // BA use .Single()
+            return ExecuteReadStoredProcedure("GetGameById", new SqlParameter[] { new SqlParameter("@game_id",gameId), }).Single(); // BA use .Single()
         }
 
         public override IEnumerable<GameDb> All()
@@ -31,5 +31,9 @@ namespace Quoridors.Models.Database
             return ExecuteReadStoredProcedure("GetAllGame", new SqlParameter[]{});
         }
 
+        public void UpdateGame(Game game)
+        {
+            ExecuteReadStoredProcedure("UpdateGame", new SqlParameter[] {new SqlParameter("@game_id", game.Id), new SqlParameter("@game_turns", game.Turn) });
+        }
     }
 }

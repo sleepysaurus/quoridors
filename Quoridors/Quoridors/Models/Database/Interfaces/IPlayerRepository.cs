@@ -4,12 +4,12 @@ using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database.Interfaces
 {
-    public interface IPlayerRepository
+    public interface IPlayerRepository : IRepository<PlayerDb>
     {
         PlayerDb NewModel(SqlDataReader reader);
         PlayerDb CreatePlayer(PlayerDb toCreate);
         IEnumerable<PlayerDb> All();
-        PositionDb GetPosition(int playerId);
+        //PositionDb GetPositionByPlayerId(int playerId);
         void ExecuteStoredProcedure(string procedureName, PlayerDb thingToDoStuffWith, SqlParameter[] parameters);
         IEnumerable<PlayerDb> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters);
         void ExecuteNonQuery(string query);

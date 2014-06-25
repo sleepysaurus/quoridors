@@ -32,9 +32,9 @@ namespace Quoridors.Models.Database
             return ExecuteReadStoredProcedure("GetAllPlayer", new SqlParameter[] {});
         }
 
-        public PositionDb GetPosition(int playerId)
-        {
-            throw new NotImplementedException();
-        }
+        //public PositionDb GetPositionByPlayerId(int playerId) //why the fuck is this here?
+        //{
+        //    return ExecuteReadStoredProcedure("GetPositionByPlayerId", new SqlParameter[] { new SqlParameter("@player_id", playerId) }).Single();
+        //}
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
+using Quoridors.Models.Interfaces;
 
 namespace Quoridors.Models.Services
 {
