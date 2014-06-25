@@ -30,7 +30,7 @@ button:hover {
 
 .box {
     background: url("../Content/image/lightwood.png") repeat;
-    height: 900px;
+    padding-bottom: 10px;
 }
 
 
@@ -56,13 +56,13 @@ table {
 
 td {
     background-color: #969696;
-    border: 1px #312A3B solid;
+    border: 3px #312A3B solid;
     height: 70px;
     width: 70px;
     empty-cells: show;
 }
 
-#
+
 
 
 /*----------PLAYERS----------*/

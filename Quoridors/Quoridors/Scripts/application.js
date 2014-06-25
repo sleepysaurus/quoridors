@@ -33,18 +33,22 @@ var redrawBoard = function(data) {
 //        $(".gameBoard").addClass("#wall");
 //    });
 //}
-var player = "player1";
+var player = "player2";
 
 $(document).ready(function() {
-
     newGame();
     setup();
-
     //$("#logo").spin().animate({ height: "20px" }, 500);
-    
-    $(".gameBoard").on('click', 'td', function () {
+    $(".draggable").draggable();
 
-        $(".gameBoard td").removeClass(player);
+    $(".gameBoard td").droppable({
+        drop: function(event, ui) {
+            console.log("Dropped on: ", event, ui);
+        }
+    });
+
+    $(".gameBoard").on('click', 'td', function () {
+        
 
         if (player === "player1") {
             player = "player2";
@@ -52,7 +56,11 @@ $(document).ready(function() {
             player = "player1";
         }
 
-        $(this).addClass("player2");
+        $(".gameBoard td").removeClass(player);
+        $(this).addClass(player);
+
+        $("#player-turn").html(player);
+
 
         var move = {
             playerId: 1,
