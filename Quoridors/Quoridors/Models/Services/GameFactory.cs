@@ -49,9 +49,9 @@ namespace Quoridors.Models.Services
             {
                 var player = new PlayerDb(playerName, gameId, 0);
                 var playerDb = _playerRepository.CreatePlayer(player);
-                var mappedPlayer = _playerDbToPlayerMapper.MappingPlayer(playerDb); // TODO map playerdbs to players
+                var mappedPlayer = _playerDbToPlayerMapper.MappingPlayer(playerDb); 
 
-                mappedPlayer.Position = _startingPositions[playerNumber]; // // TODO figure out player starting positions
+                mappedPlayer.Position = _startingPositions[playerNumber]; 
                 mappedPlayer.PlayerNumber = playerNumber;
                 mappedPlayer.Id = playerDb.Id;
                 players.Add(mappedPlayer);

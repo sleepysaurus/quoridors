@@ -16,22 +16,23 @@ namespace Quoridors.Controllers
         private readonly IBoardToJsonMapper _boardToJsonMapper;
         private readonly IWallRepository _wallRepository;
         private readonly IPositionRepository _positionRepository;
+        private readonly IGameRepository _gameRepository;
 
         public GameController(IBoardStateUpdater boardStateUpdater, IGameFactory gameFactory,
-            IBoardToJsonMapper boardToJsonMapper, IWallRepository wallRepository, IPositionRepository positionRepository)
+            IBoardToJsonMapper boardToJsonMapper, IWallRepository wallRepository, IPositionRepository positionRepository, IGameRepository gameRepository)
         {
             _boardStateUpdater = boardStateUpdater;
             _gameFactory = gameFactory;
             _boardToJsonMapper = boardToJsonMapper;
             _wallRepository = wallRepository;
             _positionRepository = positionRepository;
+            _gameRepository = gameRepository;
         }
 
         [HttpGet]
-        public JsonResult NewGame() // TODO this needs to take some sort of model with IEnumerable<player names>
+        public JsonResult NewGame() 
         {  
-            //BA WTF is this doing in the controller?
-
+            
             Game game = _gameFactory.New(new []{"Jim", "Barry"});
 
             foreach (var player in game.Players)
@@ -49,7 +50,8 @@ namespace Quoridors.Controllers
         {
             var game = _gameFactory.Load(position.GameId);
             game.Board = _boardStateUpdater.MovePlayer(position, game).Board;
-            
+            game.Turn += 1;
+            _gameRepository.UpdateGame(game);
             _positionRepository.Update(position);
             var boardToReturn = _boardToJsonMapper.CreateBoardObject( game);
             return Json(boardToReturn, JsonRequestBehavior.AllowGet);
@@ -60,6 +62,8 @@ namespace Quoridors.Controllers
         {
             var game = _gameFactory.Load(wall.GameId);
             game.Board = _boardStateUpdater.AddWall(wall, game).Board;
+            game.Turn += 1;
+            _gameRepository.UpdateGame(game);
             _wallRepository.CreateWall(wall);
             var boardToReturn = _boardToJsonMapper.CreateBoardObject(game);
             return Json(boardToReturn, JsonRequestBehavior.AllowGet);

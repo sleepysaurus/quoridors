@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Moq;
 using NUnit.Framework;
 using Quoridors.Models;
 using Quoridors.Models.Database.Interfaces;
@@ -16,12 +18,19 @@ namespace QuoridorsTests.Models.Services
         {
             // Arrange
             var gameRepo = new Mock<IGameRepository>();
+            var playerRepo = new Mock<IPlayerRepository>();
+            var playerMapper = new Mock<IPlayerDbToPlayerMapper>();
             var boardFactory = new BoardFactory();
+            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory, playerRepo.Object, playerMapper.Object);
+            var playerList = new []{"Jan", "Sue"};
+
+
             gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() {Id = 1});
-            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory);
+            playerRepo.Setup(x => x.CreatePlayer(It.IsAny<PlayerDb>())).Returns(new PlayerDb("joe", 0, 0));
+            playerMapper.Setup(x => x.MappingPlayer(It.IsAny<PlayerDb>())).Returns(new Player(0, "joejoe", null));
 
             // Act
-            var newgame = gameFactory.New();
+            var newgame = gameFactory.New(playerList);
 
             // Assert
             Assert.That(newgame.Board.Length == 17);
@@ -32,14 +41,19 @@ namespace QuoridorsTests.Models.Services
         {
             // Arrange
             var gameRepo = new Mock<IGameRepository>();
-            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = 1 });
+            var playerRepo = new Mock<IPlayerRepository>();
+            var playerMapper = new Mock<IPlayerDbToPlayerMapper>();
             var boardFactory = new BoardFactory();
-            
-            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory);;
-            
+            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory, playerRepo.Object, playerMapper.Object);
+            var playerList = new[] { "Jan", "Sue" };
+
+
+            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = 1 });
+            playerRepo.Setup(x => x.CreatePlayer(It.IsAny<PlayerDb>())).Returns(new PlayerDb("joe", 0, 0));
+            playerMapper.Setup(x => x.MappingPlayer(It.IsAny<PlayerDb>())).Returns(new Player(0, "joejoe", null));
 
             // Act
-            var newgame = gameFactory.New();
+            var newgame = gameFactory.New(playerList);
 
             // Assert
             Assert.That(newgame.Board[0].Length == 17);
@@ -49,16 +63,23 @@ namespace QuoridorsTests.Models.Services
         public void The_New_method_creates_a_game_with_an_id_of_a_given_gameDB()
         {
             //Arrange
-            var gameRepoforId = Mock.Of<IGameRepository>();
+            var gameRepo = new Mock<IGameRepository>();
+            var playerRepo = new Mock<IPlayerRepository>();
+            var playerMapper = new Mock<IPlayerDbToPlayerMapper>();
             var boardFactory = new BoardFactory();
-            Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(new GameDb() {Id = 7});
-            var gamefactory = new GameFactory(gameRepoforId, null, boardFactory);
+            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory, playerRepo.Object, playerMapper.Object);
+            var playerList = new[] { "Jan", "Sue" };
+            const int gameid = 7;
+
+            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = gameid });
+            playerRepo.Setup(x => x.CreatePlayer(It.IsAny<PlayerDb>())).Returns(new PlayerDb("joe", 0, 0));
+            playerMapper.Setup(x => x.MappingPlayer(It.IsAny<PlayerDb>())).Returns(new Player(0, "joejoe", null));
 
             //Act
-            var newgame = gamefactory.New();
+            var newgame = gameFactory.New(playerList);
 
             //Assert
-            Assert.That(newgame.Id == 7);
+            Assert.That(newgame.Id == gameid);
         }
 
         [Test]
@@ -66,12 +87,19 @@ namespace QuoridorsTests.Models.Services
         {
             //Arrange
             var gameRepo = new Mock<IGameRepository>();
+            var playerRepo = new Mock<IPlayerRepository>();
+            var playerMapper = new Mock<IPlayerDbToPlayerMapper>();
             var boardFactory = new BoardFactory();
-            gameRepo.Setup(game => game.CreateGame()).Returns(new GameDb() {Id = 7});
-            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory);
+            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory, playerRepo.Object, playerMapper.Object);
+            var playerList = new[] { "Jan", "Sue" };
+
+
+            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = 1 });
+            playerRepo.Setup(x => x.CreatePlayer(It.IsAny<PlayerDb>())).Returns(new PlayerDb("joe", 0, 0));
+            playerMapper.Setup(x => x.MappingPlayer(It.IsAny<PlayerDb>())).Returns(new Player(0, "joejoe", null));
 
             // Act
-            var newgame = gameFactory.New();
+            var newgame = gameFactory.New(playerList);
 
             // Assert
             Assert.That(newgame.Turn == 1);
@@ -82,36 +110,42 @@ namespace QuoridorsTests.Models.Services
         {
             //Arrange
             var gameRepo = new Mock<IGameRepository>();
+            var playerRepo = new Mock<IPlayerRepository>();
+            var playerMapper = new Mock<IPlayerDbToPlayerMapper>();
             var boardFactory = new BoardFactory();
-            gameRepo.Setup(game => game.CreateGame()).Returns(new GameDb() {Id = 7});
-            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory);
+            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory, playerRepo.Object, playerMapper.Object);
+            var playerList = new[] { "Jan", "Sue" };
+
+
+            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = 1 });
+            playerRepo.Setup(x => x.CreatePlayer(It.IsAny<PlayerDb>())).Returns(new PlayerDb("joe", 0, 0));
+            playerMapper.Setup(x => x.MappingPlayer(It.IsAny<PlayerDb>())).Returns(new Player(0, "joejoe", null));
 
             // Act
-            var newgame = gameFactory.New();
+            var newgame = gameFactory.New(playerList);
 
             // Assert
-            Assert.That(newgame.Players.Count == 2);
+            Assert.That(newgame.Players.Count() == playerList.Count());
         }
 
         [Test]
         public void The_Load_method_creates_a_Game_object()
         {
             //Arrange
-            // BA const int GameId = 7;
-            var placeholderGame = new Game(1,1,new BoardFactory().CreateBoard()) {Id = 7};
-            var testgame = new GameDb { Id = 7 };
+            var gameRepo = new Mock<IGameRepository>();
+            var playerRepo = new Mock<IPlayerRepository>();
+            var playerMapper = new Mock<IPlayerDbToPlayerMapper>();
+            var boardFactory = new BoardFactory();
+            var gameFactory = new GameFactory(gameRepo.Object, null, boardFactory, playerRepo.Object, playerMapper.Object);
+            var playerList = new[] { "Jan", "Sue" };
 
-            var gameRepoforId = Mock.Of<IGameRepository>();
-            Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(testgame);
-            var gameMapper = Mock.Of<IGameDbMapperToGame>();
-            Mock.Get(gameMapper)
-                .Setup(mapper => mapper.MappingGameFromDatabase(It.IsAny<GameDb>()))
-                .Returns(placeholderGame);
-            var gameStateUpdater = Mock.Of<IBoardStateUpdater>();
-            var gamefactory = new GameFactory(gameRepoforId, gameMapper, null);
 
-            //Act
-            var newgame = gamefactory.Load(7);
+            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = 1 });
+            playerRepo.Setup(x => x.CreatePlayer(It.IsAny<PlayerDb>())).Returns(new PlayerDb("joe", 0, 0));
+            playerMapper.Setup(x => x.MappingPlayer(It.IsAny<PlayerDb>())).Returns(new Player(0, "joejoe", null));
+
+            // Act
+            var newgame = gameFactory.New(playerList);
 
             //Assert
             Assert.IsInstanceOf<Game>(newgame);
