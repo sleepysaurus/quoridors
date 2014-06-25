@@ -33,7 +33,7 @@ var redrawBoard = function(data) {
 //        $(".gameBoard").addClass("#wall");
 //    });
 //}
-
+var player = "player1";
 
 $(document).ready(function() {
 
@@ -41,10 +41,16 @@ $(document).ready(function() {
     setup();
 
     //$("#logo").spin().animate({ height: "20px" }, 500);
-       
-    $(".gameBoard td").click(function() {
+    
+    $(".gameBoard").on('click', 'td', function () {
 
-        $(".gameBoard td").removeClass("player2");
+        $(".gameBoard td").removeClass(player);
+
+        if (player === "player1") {
+            player = "player2";
+        } else {
+            player = "player1";
+        }
 
         $(this).addClass("player2");
 
@@ -58,9 +64,9 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "/Game/MovePlayer",
-            data: move,
+            data: move
         })
-            .done(redrawBoard);
+        .done(redrawBoard);
     });
 });
 
