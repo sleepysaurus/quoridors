@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Quoridors.Models.Database;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
@@ -28,6 +29,9 @@ namespace Quoridors.Models.Services
         // (3,4) right, goes to (5,8) and (5, 10)
         public Game AddWall(WallDb wallposition, Game game)
         {
+            
+            CheckWall(wallposition);
+
             if (wallposition.Direction == 0) //then wall is facing down.
             {
                 game.Board[wallposition.XPos * 2][wallposition.YPos * 2 - 1] = BoardCellStatus.Wall;
@@ -72,6 +76,27 @@ namespace Quoridors.Models.Services
                 game.Board[wall.XPos * 2 - 1][wall.YPos * 2] = BoardCellStatus.Wall;
                 game.Board[wall.XPos * 2 - 1][wall.YPos * 2 + 2] = BoardCellStatus.Wall;
             }
-        } 
+        }
+
+        public void CheckWall(WallDb wallposition)
+        {
+            if (wallposition.XPos == 0)
+            {
+                if (wallposition.YPos == 0)
+                {
+                    throw new Exception("Cannot place a wall from this point");
+                }
+
+                if (wallposition.Direction == 0)
+                {
+                    throw new Exception("Cannot place a outside of the board");
+                }
+            }
+
+            if (wallposition.YPos == 0 && wallposition.Direction == 1)
+            {
+                throw new Exception("Cannot place a outside of the board");
+            }
+        }
     }
 }

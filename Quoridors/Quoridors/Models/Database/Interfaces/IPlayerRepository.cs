@@ -4,7 +4,7 @@ using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database.Interfaces
 {
-    public interface IPlayerRepository
+    public interface IPlayerRepository : IRepository<PlayerDb>
     {
         PlayerDb NewModel(SqlDataReader reader);
         PlayerDb CreatePlayer(PlayerDb toCreate);

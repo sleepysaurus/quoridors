@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database

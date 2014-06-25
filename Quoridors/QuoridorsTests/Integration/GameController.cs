@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using Ninject;
 using NUnit.Framework;
 using Quoridors.App_Start;
-using Quoridors.Models;
-using Quoridors.Models.Database;
-using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
+
 
 namespace QuoridorsTests.Integration
 {
@@ -24,7 +19,7 @@ namespace QuoridorsTests.Integration
             var gameController = (Quoridors.Controllers.GameController)_ninjectKernel.Get(typeof(Quoridors.Controllers.GameController));
 
             //var gameController = new Quoridors.Controllers.GameController(boardStateUpdater, gameFactory, boardToJsonMapper, wallRepository, positionRepository, gameRepository);
-            var position = new PositionDb(36, 2, 2, 60);
+            var position = new PositionDb(36, 0, 0, 60);
 
             //Act
             var something = gameController.MovePlayer(position);

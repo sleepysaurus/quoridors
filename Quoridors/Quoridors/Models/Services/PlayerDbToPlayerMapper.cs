@@ -1,4 +1,5 @@
 ﻿using Quoridors.Models.DatabaseModels;
+using Quoridors.Models.Interfaces;
 
 namespace Quoridors.Models.Services
 {

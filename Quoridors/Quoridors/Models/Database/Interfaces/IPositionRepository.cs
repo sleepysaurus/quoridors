@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
 namespace Quoridors.Models.Database
 {
-    public interface IPositionRepository // BA inherit irepo<t
+    public interface IPositionRepository : IRepository<PositionDb>
     {
         PositionDb NewModel(SqlDataReader reader);
         PositionDb Create(PositionDb toCreate);

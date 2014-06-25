@@ -1,6 +1,6 @@
 ﻿using Quoridors.Models.DatabaseModels;
 
-namespace Quoridors.Models.Services
+namespace Quoridors.Models.Interfaces
 {
     public interface IPlayerDbToPlayerMapper
     {

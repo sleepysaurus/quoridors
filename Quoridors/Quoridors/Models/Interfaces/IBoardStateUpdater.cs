@@ -7,5 +7,6 @@ namespace Quoridors.Models.Interfaces
         Game AddWall(WallDb wallposition, Game game);
         void UpdateBoardToSavedState(Game game);
         Game MovePlayer(PositionDb position, Game game);
+        void CheckWall(WallDb wallposition);
     }
 }
