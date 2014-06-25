@@ -49,8 +49,8 @@
             var xPos = player.xPos;
             var yPos = player.yPos;
 
-            $(".gameBoard  tr:nth-child(" + yPos + ") > td:nth-child(" + xPos + ")").children().css("background", "pink");
-            //$(".gameBoard  [data-ypoz='" + yPos + "'][data-xpoz='" + xPos + "']").css("background", "pink");
+            //$(".gameBoard  tr:nth-child(" + yPos + ") > td:nth-child(" + xPos + ")").children().addClass("#player" + playerId + "Id");
+            $(".gameBoard  [data-ypoz='" + yPos + "'][data-xpoz='" + xPos + "']").addClass("#player" + playerId + "Id");
         });
     }
 
@@ -59,7 +59,8 @@
 
         newGame();
         setup();
-        $("#logo").spin().animate({ height: "20px" }, 500);
+
+        //$("#logo").spin().animate({ height: "20px" }, 500);
        
         $(".gameBoard td").click(function() {
 
