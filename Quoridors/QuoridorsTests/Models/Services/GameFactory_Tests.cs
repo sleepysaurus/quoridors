@@ -17,6 +17,7 @@ namespace QuoridorsTests.Models.Services
             // Arrange
             var gameRepo = new Mock<IGameRepository>();
             var boardFactory = new BoardFactory();
+            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() {Id = 1});
             var gameFactory = new GameFactory(null, gameRepo.Object, null, boardFactory);
 
             // Act
@@ -31,8 +32,12 @@ namespace QuoridorsTests.Models.Services
         {
             // Arrange
             var gameRepo = new Mock<IGameRepository>();
+            gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = 1 });
             var boardFactory = new BoardFactory();
+            
             var gameFactory = new GameFactory(null, gameRepo.Object, null, boardFactory);
+            var testgame = new GameDb { Id = 7 };
+            
 
             // Act
             var newgame = gameFactory.New();
@@ -47,7 +52,7 @@ namespace QuoridorsTests.Models.Services
             //Arrange
             var gameRepoforId = Mock.Of<IGameRepository>();
             var boardFactory = new BoardFactory();
-            Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(7);
+            Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(new GameDb() {Id = 7});
             var gamefactory = new GameFactory(null, gameRepoforId, null, boardFactory);
 
             //Act
@@ -63,6 +68,7 @@ namespace QuoridorsTests.Models.Services
             //Arrange
             var gameRepo = new Mock<IGameRepository>();
             var boardFactory = new BoardFactory();
+            gameRepo.Setup(game => game.CreateGame()).Returns(new GameDb() {Id = 7});
             var gameFactory = new GameFactory(null, gameRepo.Object, null, boardFactory);
 
             // Act
@@ -78,6 +84,7 @@ namespace QuoridorsTests.Models.Services
             //Arrange
             var gameRepo = new Mock<IGameRepository>();
             var boardFactory = new BoardFactory();
+            gameRepo.Setup(game => game.CreateGame()).Returns(new GameDb() {Id = 7});
             var gameFactory = new GameFactory(null, gameRepo.Object, null, boardFactory);
 
             // Act
@@ -92,8 +99,10 @@ namespace QuoridorsTests.Models.Services
         {
             //Arrange
             var placeholderGame = new Game(1,1,new BoardFactory().CreateBoard()) {Id = 7};
+            var testgame = new GameDb { Id = 7 };
+
             var gameRepoforId = Mock.Of<IGameRepository>();
-            Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(7);
+            Mock.Get(gameRepoforId).Setup(game => game.CreateGame()).Returns(testgame);
             var gameMapper = Mock.Of<IGameDbMapperToGame>();
             Mock.Get(gameMapper)
                 .Setup(mapper => mapper.MappingGameFromDatabase(It.IsAny<GameDb>()))
@@ -106,7 +115,6 @@ namespace QuoridorsTests.Models.Services
 
             //Assert
             Assert.IsInstanceOf<Game>(newgame);
-
         }
     }
 }
