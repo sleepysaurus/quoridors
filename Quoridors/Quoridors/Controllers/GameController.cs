@@ -32,16 +32,17 @@ namespace Quoridors.Controllers
         {  
             //BA WTF is this doing in the controller?
 
-            Game game = _gameFactory.New(new []{"Jim", "Barry"});
+            //Game game = _gameFactory.New(new []{"Jim", "Barry"});
 
-            foreach (var player in game.Players)
-            {
-                var positionDb = new PositionDb(player.Id, player.Position.Horizontal, player.Position.Vertical, game.Id);
-                _positionRepository.Create(positionDb);
-            }            
+            //foreach (var player in game.Players)
+            //{
+            //    var positionDb = new PositionDb(player.Id, player.Position.Horizontal, player.Position.Vertical, game.Id);
+            //    _positionRepository.Create(positionDb);
+            //}            
 
-            var convertedgame = _boardToJsonMapper.CreateBoardObject(game);
-            return Json(convertedgame, JsonRequestBehavior.AllowGet);
+            //var convertedgame = _boardToJsonMapper.CreateBoardObject(game);
+            //return Json(convertedgame, JsonRequestBehavior.AllowGet);
+            return Json(5, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

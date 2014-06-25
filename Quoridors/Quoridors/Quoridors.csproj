@@ -246,6 +246,7 @@
     <Content Include="Content\grid.css" />
     <Content Include="Content\image\black.jpg" />
     <Content Include="Content\image\darkwood.png" />
+    <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Content\image\lightwood.png" />
     <Content Include="Content\image\wood.jpg" />
     <Content Include="Content\normalize.css" />
