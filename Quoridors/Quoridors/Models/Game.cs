@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Quoridors.Models.Services;
+using Quoridors.Models.Database.Interfaces;
 
 namespace Quoridors.Models
 {
@@ -10,39 +12,19 @@ namespace Quoridors.Models
         public BoardCellStatus[][] Board { get; set; }
         public List<Player> Players { get; set; }
 
-        public Game()
+        public Game(Player player1, Player player2, BoardCellStatus[][] board, int gameId) // BA called by GameFactory for new games
         {
-            Board = new BoardCellStatus[17][];
-            CreateBoard();
+            Players = new List<Player> {player1, player2};
+            Board = board;
+            Id = gameId;
+            Turn = 1;
         }
 
-        public void CreateBoard()
+        public Game(int id, int turn, BoardCellStatus[][] board ) // BA called by board db mapper
         {
-            for (var i = 0; i < 17; i++)
-            {
-                Board[i] = new BoardCellStatus[17];
-                if (i % 2 == 0)
-                {
-                    for (var z = 0; z < 17; z++)
-                    {
-                        if (z%2 == 0)
-                        {
-                            Board[i][z] = BoardCellStatus.NoPlayer;
-                        }
-                        else
-                        {
-                            Board[i][z] = BoardCellStatus.NoWall;
-                        }
-                    }
-                }
-                if (i % 2 == 1)
-                {
-                    for (int z = 0; z < 17; z++)
-                    {
-                        Board[i][z] = BoardCellStatus.NoWall;
-                    }
-                }
-            }
-        }
+            Id = id;
+            Turn = turn;
+            Board = board;
+        }        
     }
 }

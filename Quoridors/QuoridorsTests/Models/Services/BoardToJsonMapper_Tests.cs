@@ -17,10 +17,11 @@ namespace QuoridorsTests.Models.Services
             // Arrange
             var mock = new Mock<IPositionRepository>();
             var cut = new BoardToJsonMapper(mock.Object);
-            var game = new Game();
+            var board = new BoardFactory().CreateBoard();
+            var game = new Game(1,1,board);
 
             // Act
-            var result = cut.CreateBoardObject(game.Board, game);
+            var result = cut.CreateBoardObject(game);
 
             // Assert
             Assert.IsInstanceOf(typeof(BoardToJson), result);
@@ -31,11 +32,11 @@ namespace QuoridorsTests.Models.Services
         public void GetListOfBricks_returns_a_valid_output()
         {
             // Arrange
-            var game = new Game();
+            var game = new Game(1,1,new BoardFactory().CreateBoard());
             var cut = new BoardToJsonMapper(null);
 
             // Act
-            var result = cut.GetListOfBricks(game.Board);
+            var result = cut.GetListOfBricks(game);
 
             // Assert
             Assert.IsInstanceOf(typeof(List<Brick>), result);
@@ -45,13 +46,13 @@ namespace QuoridorsTests.Models.Services
         public void GetListOfBricks_returns_correct_number_of_bricks_in_list_for_given_board()
         {
             // Arrange
-            var game = new Game();
+            var game = new Game(1,1,new BoardFactory().CreateBoard());
             game.Board[6][7] = BoardCellStatus.Wall;
             game.Board[8][7] = BoardCellStatus.Wall;
             var cut = new BoardToJsonMapper(null);
 
             // Act
-            var result = cut.GetListOfBricks(game.Board);
+            var result = cut.GetListOfBricks(game);
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2));
@@ -61,12 +62,12 @@ namespace QuoridorsTests.Models.Services
         public void GetListOfBricks_returns_correct_list_for_given_board()
         {
             // Arrange
-            var game = new Game();
+            var game = new Game(1,1, new BoardFactory().CreateBoard());
             game.Board[6][7] = BoardCellStatus.Wall;
             var cut = new BoardToJsonMapper(null);
 
             // Act
-            var result = cut.GetListOfBricks(game.Board)[0];
+            var result = cut.GetListOfBricks(game)[0];
 
             // Assert
             Assert.That(result.XPos, Is.EqualTo(3));

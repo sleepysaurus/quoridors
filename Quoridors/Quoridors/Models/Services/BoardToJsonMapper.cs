@@ -6,6 +6,7 @@ using Quoridors.Models.Interfaces;
 
 namespace Quoridors.Models.Services
 {
+    // BA consider breaking this class up into 3 service classes - this class becomes an orchestrator over the other two
     public class BoardToJsonMapper : IBoardToJsonMapper
     {
         private readonly IPositionRepository _positionRepository;
@@ -15,34 +16,34 @@ namespace Quoridors.Models.Services
             _positionRepository = positionRepository;
         }
 
-        public BoardToJson CreateBoardObject(BoardCellStatus[][] board, Game game)
+        public BoardToJson CreateBoardObject( Game game)
         {
            return new BoardToJson
             {
                 Turn = game.Turn,
                 GameId = game.Id,
-                ListOfBricks = GetListOfBricks(board),
+                ListOfBricks = GetListOfBricks(game),
                 ListOfPlayerPositions = GetListOfPlayerPositions()
             };
         }
 
-        public List<Brick> GetListOfBricks(BoardCellStatus[][] board)
+        public List<Brick> GetListOfBricks(Game game)
         {
             var listOfBricks = new List<Brick>();
 
-            for (var i = 0; i < board.Length; i++)
+            for (var i = 0; i < game.Board.Length; i++)
             {
-                for (var z = 0; z < board.Length; z++)
+                for (var z = 0; z < game.Board.Length; z++)
                 {
-                    if (board[i][z] != BoardCellStatus.Wall) continue;
+                    if (game.Board[i][z] != BoardCellStatus.Wall) continue;
                     if (i%2 != 0 && z%2 != 0)
                     {
                         continue;
                     }
 
                     listOfBricks.Add(i%2 != 0
-                        ? new Brick( (int) Math.Ceiling((decimal)i/2),  z/2, BrickDirection.Top)
-                        : new Brick(i/2, (int) Math.Ceiling((decimal)z/2), BrickDirection.Left));
+                        ? new Brick( (int) Math.Ceiling((decimal)i/2),  z/2, BrickAlignment.Top)
+                        : new Brick(i/2, (int) Math.Ceiling((decimal)z/2), BrickAlignment.Left));
                 }
             }
 
