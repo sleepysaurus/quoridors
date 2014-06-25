@@ -36,7 +36,7 @@ button:hover {
 
 .gameBoard {
     width: 660px;
-    /*margin: auto;*/
+    margin: auto;
     margin-bottom: 3px;
 }
 
@@ -56,13 +56,27 @@ table {
 
 td {
     background-color: #969696;
-    border: 3px #312A3B solid;
+    border-top: 3px #312A3B solid;
+    border-left: 3px #312A3B solid;
     height: 70px;
     width: 70px;
     empty-cells: show;
 }
 
+tr td:last-child {
+    border-right: 3px #312A3B solid;
+}
 
+tr:last-child td {
+    border-bottom: 3px #312A3B solid;
+}
+
+.grid_container {
+    width: 200px;
+    margin: auto;
+
+
+}
 
 
 /*----------PLAYERS----------*/
@@ -77,13 +91,39 @@ td {
 }
 
 #player1Id {
-    float: left;
+    
 }
 
 #player1Id {
-    float: right;
+    
 }
 
 /*.active {
     background-color: #7F0000;
 }*/
+
+/*--------WALL BEHAVIOUR-------*/
+
+.hover-wall-top {
+    background-color: #696969;
+    border-top: 3px solid yellow;
+}
+
+.wall-left {
+    border-left: 3px solid yellow;
+}
+
+.hover-wall-left {
+    background-color: #696969;
+    border-left: 3px solid yellow;
+}
+
+.wall-top {
+    border-top: 3px solid yellow;
+}
+
+.draggable {
+    border: 1px solid black;
+    padding: 5px;
+}
+

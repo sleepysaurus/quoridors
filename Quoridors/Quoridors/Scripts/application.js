@@ -1,51 +1,55 @@
-﻿//var handleBarSource = $("#entry-template").html();
-//var template = Handlebars.compile(handleBarSource);
-
-//var html = template(player);
-
-
-var processNewGameData = function(data) {
-    $.each(data, function(index, player) {
-        var playerId = player.PlayerNumber;
-        $("#player" + playerId + "Id").html(player.PlayerName);
-    });
-}
-
-var redrawBoard = function(data) {
-    $.each(data.ListOfPlayerPositions, function(index, player) {
-        var playerId = player.playerId;
-        var gameId = player.gameId;
-        var xPos = player.xPos;
-        var yPos = player.yPos;
-
-        //$(".gameBoard  tr:nth-child(" + yPos + ") > td:nth-child(" + xPos + ")").children().addClass("#player" + playerId + "Id");
-        $(".gameBoard  [data-ypoz='" + yPos + "'][data-xpoz='" + xPos + "']").addClass("#player" + playerId + "Id");
-    });
-}
-
-//STUB
-//var redrawWalls = function(data) {
-//    $.each(data.ListOfBricks, function(index, wall) {
-//        var xPos = wall.xPos;
-//        var yPos = wall.yPos;
-//        var brickDirection = wall.topOrLeft;
-
-//        $(".gameBoard").addClass("#wall");
-//    });
-//}
-var player = "player2";
+﻿var player = "player1";
 
 $(document).ready(function() {
-    newGame();
     setup();
     //$("#logo").spin().animate({ height: "20px" }, 500);
-    $(".draggable").draggable();
+    $(".draggable").draggable({ helper: "clone" });
 
     $(".gameBoard td").droppable({
-        drop: function(event, ui) {
-            console.log("Dropped on: ", event, ui);
+        over: function (event, ui) {
+            if (ui.helper.context.className.contains("horizontal")) {
+                $(this).addClass("hover-wall-top");
+                $(this).next().addClass("hover-wall-top");
+            } else {
+                $(this).addClass("hover-wall-left");
+                var xPos = $(this).attr("data-xpoz");
+                $(this).parent().next().children().eq(xPos).addClass("hover-wall-left");
+            }
+        },
+
+        out: function (event, ui) {
+            if (ui.helper.context.className.contains("horizontal")) {
+                $(this).removeClass("hover-wall-top");
+                $(this).next().removeClass("hover-wall-top");
+            } else {
+                $(this).removeClass("hover-wall-left");
+                var xPos = $(this).attr("data-xpoz");
+                $(this).parent().next().children().eq(xPos).removeClass("hover-wall-left");
+            }
+        },
+
+        // TODO reply to server with walldrop
+        drop: function (event, ui) {
+            if (player === "player1") {
+                player = "player2";
+            } else {
+                player = "player1";
+            }
+            if (ui.helper.context.className.contains("horizontal")) {
+                $(this).removeClass("hover-wall-top");
+                $(this).next().removeClass("hover-wall-top");
+                $(this).addClass("wall-top");
+                $(this).next().addClass("wall-top");
+            } else {
+                $(this).removeClass("hover-wall-left");
+                $(this).addClass("wall-left");
+                var xPos = $(this).attr("data-xpoz");
+                $(this).parent().next().children().eq(xPos).removeClass("hover-wall-left").addClass("wall-left");
+            }
         }
     });
+
+    newGame();
 
     $(".gameBoard").on('click', 'td', function () {
         
@@ -91,6 +95,40 @@ function setup() {
         }
         $(".gameBoard").append(row);
     }
-};
+}
 
+var processNewGameData = function (data) {
+    $.each(data, function (index, player) {
+        var playerId = player.PlayerNumber;
+        $("#player" + playerId + "Id").html(player.PlayerName);
+    });
+}
+
+var redrawBoard = function (data) {
+    $.each(data.ListOfPlayerPositions, function (index, player) {
+        var playerId = player.playerId;
+        var gameId = player.gameId;
+        var xPos = player.xPos;
+        var yPos = player.yPos;
+
+        //$(".gameBoard  tr:nth-child(" + yPos + ") > td:nth-child(" + xPos + ")").children().addClass("#player" + playerId + "Id");
+        $(".gameBoard  [data-ypoz='" + yPos + "'][data-xpoz='" + xPos + "']").addClass("#player" + playerId + "Id");
+    });
+}
+
+//var handleBarSource = $("#entry-template").html();
+//var template = Handlebars.compile(handleBarSource);
+
+//var html = template(player);
+
+//STUB
+//var redrawWalls = function(data) {
+//    $.each(data.ListOfBricks, function(index, wall) {
+//        var xPos = wall.xPos;
+//        var yPos = wall.yPos;
+//        var brickDirection = wall.topOrLeft;
+
+//        $(".gameBoard").addClass("#wall");
+//    });
+//}
 

@@ -3,24 +3,27 @@
         <div>
             <h1 id="logo">Corridor</h1>
         </div>
-        <div class="grid_1">
-            <span id="player1Id">Player1</span>
+        <div class="grid_12">
+            <div class="grid_container">
+                <div id="turn" class="grid_2">Turn: <span id="player-turn">Player 1</span></div>
+            </div>
         </div>
-        <div class="grid_1">
-            <span id="player2Id">Player2</span>
-        </div>
-        <div id="turn">Turn: <span id="player-turn"></span></div>
         <div>
             <table class="gameBoard">
             </table>
         </div>
         <div>
+            <span id="player1Id">Player1</span>
+            <span id="player2Id">Player2</span>
+        </div>
+
+        <div>
             <textarea id="msg" rows="3" cols="50" placeholder="Game messages..."></textarea>
         </div>
         <div>
             <button>Move</button>
-            <button class="draggable">Vertical Wall</button>
-            <button class="draggable">Horizontal Wall</button>
+            <span class="draggable vertical">Vertical Wall</span>
+            <span class="draggable horizontal">Horizontal Wall</span>
         </div>
     </div>
     <script src="~/Scripts/application.js"></script>
