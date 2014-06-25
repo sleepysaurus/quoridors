@@ -1,24 +1,46 @@
 ﻿var player = "player1";
 
-var ViewModel = function () {
-    this.playerTurn = ko.observable(1),
+//var ViewModel = function (player) {
+//    this.player = player,
+//    this.playerTurn = ko.observable(1),
+//    this.player1Position = ko.observable(),
+//    this.player2Position = ko.observable(),
 
-    this.updatePlayerCss = function() {
-        return "player1";
-    }
+//    this.playerCss = function (xPoz, yPoz) {
+//        if (xPoz === this.player1Position().x && yPoz === this.player1Position().y) {
+//            return "player1";
+//        }
+//        if (xPoz === this.player2Position().x && yPoz === this.player2Position().y) {
+//            return "player2";
+//        }
+//        return "";
+//    },
 
-    this.registerClick = function (xPoz, yPoz) {
-        console.log("clicked me");
-        $(".gameBoard td").removeClass(player);
-        console.log(xPoz, yPoz);
-        $(".gameBoard tr:nth-child(" + (yPoz+1) + ") > td:nth-child(" + (xPoz+1) + ")").addClass(player);
+//    this.registerClick = function (xPoz, yPoz) {
+//        if (this.player === "player1") {
+//            this.player = "player2";
+//            this.player2Position({
+//                x: xPoz,
+//                y: yPoz
+//            });
 
-    }
-}
+//        } else {
+//            this.player1Position({
+//                x: xPoz,
+//                y: yPoz
+//            });
+//            this.player = "player1";
+//        }
+//    }
+//}
+
+
 
 $(document).ready(function() {
+
     setup();
-    ko.applyBindings(new ViewModel());
+
+    //ko.applyBindings(new ViewModel());
     //$("#logo").spin().animate({ height: "20px" }, 500);
     $(".draggable").draggable({ helper: "clone" });
 
@@ -69,35 +91,37 @@ $(document).ready(function() {
 
     newGame();
 
+    $(".gameBoard").on('click', 'td', function () {
 
-    //$(".gameBoard").on('click', 'td', function () {
-        
 
-    //    if (player === "player1") {
-    //        player = "player2";
-    //    } else {
-    //        player = "player1";
-    //    }
+        if (player === "player1") {
+            player = "player2";
+        } else {
+            player = "player1";
+        }
 
-    //    $(".gameBoard td").removeClass(player);
-    //    $(this).addClass(player);
+        $(".gameBoard td").removeClass(player);
+        $(this).addClass(player);
 
-    //    $("#player-turn").html(player);
+        $("#player-turn").html(player);
 
-    //    var move = {
-    //        playerId: 1,
-    //        gameId: 1,
-    //        xPos: $(this).data("xPoz"),
-    //        yPoz: $(this).data("yPoz")
-    //    };
+        var move = {
+            playerId: 1,
+            gameId: 1,
+            xPos: $(this).data("yPoz"),
+            yPoz: $(this).data("xPoz")
+        };
 
-    //    $.ajax({
-    //        type: "POST",
-    //        url: "/Game/MovePlayer",
-    //        data: move
-    //    })
-    //    .done(redrawBoard);
-    //});
+        $.ajax({
+            type: "POST",
+            url: "/Game/MovePlayer",
+            data: move,
+            success: redrawBoard,
+            error: function() {
+                console.log("you fail");
+            }
+        });
+    });
 });
 
 function newGame() {
@@ -109,7 +133,7 @@ function setup() {
     for (var horizontal = 0; horizontal < 9; horizontal++) {
         var row = $("<tr>");
         for (var vertical = 0; vertical < 9; vertical++) {
-            row.append($("<td data-bind='click: registerClick("+vertical+", "+horizontal+")' data-xPoz=" + vertical + " " + "data-yPoz=" + horizontal + "></td>"));
+            row.append($("<td data-bind='click: registerClick(" + vertical + ", " + horizontal + "), css: playerCss(" + vertical + ", " + horizontal + ")' data-xPoz=" + vertical + " " + "data-yPoz=" + horizontal + "></td>"));
         }
         $(".gameBoard").append(row);
     }
