@@ -12,9 +12,9 @@ namespace Quoridors.Models.Database
 
         protected Repository()
         {
-            //_connection = new SqlConnection(@ConfigurationManager.AppSettings["Connection-String"]);
-            //_connection.Open();
-            //_command = new SqlCommand("", _connection);
+            _connection = new SqlConnection(@ConfigurationManager.AppSettings["Connection-String"]);
+            _connection.Open();
+            _command = new SqlCommand("", _connection);
         }
 
         public void ExecuteStoredProcedure(string procedureName, T thingToDoStuffWith, SqlParameter[] parameters)

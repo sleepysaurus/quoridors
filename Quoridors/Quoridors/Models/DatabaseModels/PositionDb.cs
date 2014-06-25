@@ -8,6 +8,10 @@
         public int YPos { get; set; }
         public int GameId { get; set; }
 
+        public PositionDb()
+        {
+        }
+
         public PositionDb(int playerId, int xPos, int yPos, int gameId)
         {
             PlayerId = playerId;

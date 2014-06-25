@@ -106,10 +106,10 @@ $(document).ready(function() {
         $("#player-turn").html(player);
 
         var move = {
-            playerId: 1,
-            gameId: 1,
-            xPos: $(this).data("yPoz"),
-            yPoz: $(this).data("xPoz")
+            PlayerId: 1,
+            GameId: 1,
+            XPos: $(this).attr("data-yPoz"),
+            YPos: $(this).attr("data-xPoz")
         };
 
         $.ajax({
@@ -125,8 +125,11 @@ $(document).ready(function() {
 });
 
 function newGame() {
-    var newGamePromise = $.ajax("/Game/NewGame");
-    newGamePromise.done(processNewGameData);
+    $.ajax({
+        type: "GET",
+        url: "/Game/NewGame",
+        success: processNewGameData
+    });
 }
 
 function setup() {
@@ -142,10 +145,24 @@ function setup() {
 
 
 var processNewGameData = function (data) {
-    $.each(data, function (index, player) {
-        var playerId = player.PlayerNumber;
-        $("#player" + playerId + "Id").html(player.PlayerName);
-    });
+    var gameId = data.GameId;
+    var turn = data.Turn;
+    var player1 = {
+        id: data.ListOfPlayerPositions[0].PlayerId,
+        xPos: data.ListOfPlayerPositions[0].XPos,
+        yPos: data.ListOfPlayerPositions[0].YPos,
+    }
+
+    var player2 = {
+        id: data.ListOfPlayerPositions[1].PlayerId,
+        xPos: data.ListOfPlayerPositions[1].XPos,
+        yPos: data.ListOfPlayerPositions[1].YPos,
+    }
+
+    //$.each(data, function (index, player) {
+    //    var playerId = player.PlayerNumber;
+    //    $("#player" + playerId + "Id").html(player.PlayerName);
+    //});
 }
 
 var redrawBoard = function (data) {
