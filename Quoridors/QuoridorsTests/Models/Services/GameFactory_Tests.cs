@@ -28,15 +28,14 @@ namespace QuoridorsTests.Models.Services
         }
 
         [Test]
-        public void The_arrays_for_the_game_inside_the_New_method_are_also_the_correct_length()
+        public void The_arrays_inside_the_game_instance_returned_by_the_New_method_are_also_the_correct_length()
         {
             // Arrange
             var gameRepo = new Mock<IGameRepository>();
             gameRepo.Setup(x => x.CreateGame()).Returns(new GameDb() { Id = 1 });
             var boardFactory = new BoardFactory();
             
-            var gameFactory = new GameFactory(null, gameRepo.Object, null, boardFactory);
-            var testgame = new GameDb { Id = 7 };
+            var gameFactory = new GameFactory(null, gameRepo.Object, null, boardFactory);;
             
 
             // Act
@@ -47,7 +46,7 @@ namespace QuoridorsTests.Models.Services
         }
 
         [Test]
-        public void The_New_method_creates_a_game_with_an_id_of_a_given_gameID()
+        public void The_New_method_creates_a_game_with_an_id_of_a_given_gameDB()
         {
             //Arrange
             var gameRepoforId = Mock.Of<IGameRepository>();
@@ -98,6 +97,7 @@ namespace QuoridorsTests.Models.Services
         public void The_Load_method_creates_a_Game_object()
         {
             //Arrange
+            // BA const int GameId = 7;
             var placeholderGame = new Game(1,1,new BoardFactory().CreateBoard()) {Id = 7};
             var testgame = new GameDb { Id = 7 };
 

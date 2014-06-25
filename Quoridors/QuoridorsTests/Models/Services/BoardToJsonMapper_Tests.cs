@@ -25,6 +25,7 @@ namespace QuoridorsTests.Models.Services
 
             // Assert
             Assert.IsInstanceOf(typeof(BoardToJson), result);
+            // BA can you make some more detail assertions about this result?
 
         }
 
@@ -39,7 +40,7 @@ namespace QuoridorsTests.Models.Services
             var result = cut.GetListOfBricks(game);
 
             // Assert
-            Assert.IsInstanceOf(typeof(List<Brick>), result);
+            Assert.IsInstanceOf(typeof(List<Brick>), result); // BA dito the above - do you need this test?
         }
 
         [Test]

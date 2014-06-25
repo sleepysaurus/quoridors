@@ -25,6 +25,7 @@ namespace Quoridors.Models
             Id = id;
             Turn = turn;
             Board = board;
+            Players = new List<Player>();
         }        
     }
 }

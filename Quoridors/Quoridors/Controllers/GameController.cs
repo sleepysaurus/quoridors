@@ -29,10 +29,10 @@ namespace Quoridors.Controllers
 
         [HttpGet]
         public JsonResult NewGame()
-        {
-            
-            Game game = _gameFactory.New();
+        {  
+            //BA WTF is this doing in the controller?
 
+            Game game = _gameFactory.New();
 
             var player1 = new PlayerDb(game.Players[0].PlayerName, game.Id);
             var player2 = new PlayerDb(game.Players[1].PlayerName, game.Id);
@@ -46,7 +46,7 @@ namespace Quoridors.Controllers
             _positionRepository.Create(position1);
             _positionRepository.Create(position2);
 
-            var convertedgame = _boardToJsonMapper.CreateBoardObject(game.Board, game);
+            var convertedgame = _boardToJsonMapper.CreateBoardObject(game);
             return Json(convertedgame, JsonRequestBehavior.AllowGet);
         }
 

@@ -12,7 +12,7 @@ namespace QuoridorsTests.Models.Services
     [TestFixture]
     class BoardStateUpdater_Tests
     {
-        private Game game;
+        private Game game; // BA either have this as the expected values, or don't
         private BoardFactory boardFactory;
 
         [TestFixtureSetUp]
