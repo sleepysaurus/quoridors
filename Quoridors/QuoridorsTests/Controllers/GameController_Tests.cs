@@ -7,11 +7,12 @@ using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 using Quoridors.Models.Interfaces;
 using Quoridors.Models.Services;
+using QuoridorsTests.Plumbing;
 
 namespace QuoridorsTests.Controllers
 {
     [TestFixture]
-    public class GameController_Tests
+    public class GameController_Tests : UnitTestBase<GameController>
     {
         [Test]
         public void The_NewGame_method_gets_a_new_game_from_the_gameFactory()
@@ -33,16 +34,15 @@ namespace QuoridorsTests.Controllers
         public void The_move_player_method_hits_each_method_within_it_once()
         {
             // Arrange
-            var gameMock = new Mock<IGameFactory>();
-            var boardMock = new Mock<IBoardStateUpdater>();
-            var positionMock = new Mock<IPositionRepository>();
-            var boardToJsonMock = new Mock<IBoardToJsonMapper>();
+            var gameMock = GetMock<IGameFactory>();
+            var boardMock = GetMock<IBoardStateUpdater>();
+            var positionMock = GetMock<IPositionRepository>();
+            var boardToJsonMock = GetMock<IBoardToJsonMapper>();
             gameMock.Setup(x => x.Load(It.IsAny<int>())).Returns(new Game(1, 1, new BoardFactory().CreateBoard()));
             boardMock.Setup(x => x.MovePlayer(It.IsAny<PositionDb>(), It.IsAny<Game>())).Returns(new Game(1,1, new BoardFactory().CreateBoard()));
-            var sut = new GameController(boardMock.Object, gameMock.Object, boardToJsonMock.Object, null, positionMock.Object, null);
             
             // Act
-            sut.MovePlayer(new PositionDb(0,0,0,0));
+            ClassUnderTest.MovePlayer(new PositionDb(0,0,0,0));
 
             // Assert
             gameMock.Verify(x => x.Load(It.IsAny<int>()), Times.Exactly(1));
