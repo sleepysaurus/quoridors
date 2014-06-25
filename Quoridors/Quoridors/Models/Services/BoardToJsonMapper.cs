@@ -23,7 +23,7 @@ namespace Quoridors.Models.Services
                 Turn = game.Turn,
                 GameId = game.Id,
                 ListOfBricks = GetListOfBricks(game),
-                ListOfPlayerPositions = GetListOfPlayerPositions()
+                ListOfPlayerPositions = GetListOfPlayerPositions(game.Id)
             };
         }
 
@@ -50,9 +50,9 @@ namespace Quoridors.Models.Services
             return listOfBricks;
         }
 
-        public List<PositionJson> GetListOfPlayerPositions()
+        public List<PositionJson> GetListOfPlayerPositions(int gameId)
         {
-            var listOfPositionsFromRepo = _positionRepository.All();
+            var listOfPositionsFromRepo = _positionRepository.All().Where(x=>x.GameId == gameId);
 
             return listOfPositionsFromRepo.Select(positon => new PositionJson() {PlayerId = positon.PlayerId, XPos = positon.XPos, YPos = positon.YPos}).ToList();
         }

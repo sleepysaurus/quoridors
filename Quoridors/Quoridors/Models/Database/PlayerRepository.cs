@@ -12,8 +12,10 @@ namespace Quoridors.Models.Database
         public override PlayerDb NewModel(SqlDataReader reader)
         {
             return new PlayerDb
-                (reader.GetString(reader.GetOrdinal("name")),
-                reader.GetInt32(reader.GetOrdinal("game_id")));
+                (
+                reader.GetString(reader.GetOrdinal("name")),
+                reader.GetInt32(reader.GetOrdinal("game_id")),
+                reader.GetInt32(reader.GetOrdinal("id")));
         }
 
         public PlayerDb CreatePlayer(PlayerDb toCreate)

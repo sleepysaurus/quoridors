@@ -233,6 +233,10 @@
     <Compile Include="Models\DatabaseModels\PositionDb.cs" />
     <Compile Include="Models\DatabaseModels\WallDb.cs" />
     <Compile Include="Models\Interfaces\IBoardFactory.cs" />
+    <Compile Include="Models\Services\IPlayerDbToPlayerMapper.cs" />
+    <Compile Include="Models\Services\IPlayerToPlayerDbMapper.cs" />
+    <Compile Include="Models\Services\PlayerDbToPlayerMapper.cs" />
+    <Compile Include="Models\Services\PlayerToPlayerDbMapper.cs" />
     <Compile Include="Plumbing\NinjectControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

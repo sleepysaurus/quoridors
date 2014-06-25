@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Quoridors.Models.Services;
-using Quoridors.Models.Database.Interfaces;
 
 namespace Quoridors.Models
 {
@@ -10,11 +8,11 @@ namespace Quoridors.Models
         public int Turn { get; set; }
         public Player Winner { get; set; }
         public BoardCellStatus[][] Board { get; set; }
-        public List<Player> Players { get; set; }
+        public IEnumerable<Player> Players { get; set; }
 
-        public Game(Player player1, Player player2, BoardCellStatus[][] board, int gameId) // BA called by GameFactory for new games
+        public Game(IEnumerable<Player> players,BoardCellStatus[][] board, int gameId) // BA called by GameFactory for new games
         {
-            Players = new List<Player> {player1, player2};
+            Players = players;
             Board = board;
             Id = gameId;
             Turn = 1;

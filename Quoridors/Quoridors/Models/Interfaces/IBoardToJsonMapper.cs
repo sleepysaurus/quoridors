@@ -6,6 +6,6 @@ namespace Quoridors.Models.Interfaces
     {
         BoardToJson CreateBoardObject(Game game);
         List<Brick> GetListOfBricks(Game game);
-        List<PositionJson> GetListOfPlayerPositions();
+        List<PositionJson> GetListOfPlayerPositions(int gameId);
     }
 }
