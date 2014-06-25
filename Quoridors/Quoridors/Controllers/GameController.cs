@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Web.Mvc;
+using Quoridors.Models;
 using Quoridors.Models.Database;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
@@ -38,7 +39,7 @@ namespace Quoridors.Controllers
             var game = _gameFactory.Load(position.GameId);
             var newBoard = _boardStateUpdater.MovePlayer(position, game).Board;
             _positionRepository.Update(position);
-            var boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard);
+            BoardToJson boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard);
             return Json(boardToReturn, JsonRequestBehavior.AllowGet);
         }
 

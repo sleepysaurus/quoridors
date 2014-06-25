@@ -25,6 +25,9 @@ button:hover {
     margin: 0px;
 }
 
+
+/*----------GAMEBOARD----------*/
+
 .box {
     background: url("../Content/image/lightwood.png") repeat;
     height: 900px;
@@ -58,6 +61,10 @@ td {
     width: 70px;
     empty-cells: show;
 }
+
+
+/*----------PLAYERS----------*/
+
 
 .player1 {
     background-color: #7F0000;
