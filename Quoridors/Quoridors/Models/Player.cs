@@ -5,6 +5,7 @@ namespace Quoridors.Models
     [Serializable]
     public class Player
     {
+        public int Id { get; set; }
         public int PlayerNumber { get; set; }
         public Position Position { get; set; }
         public string PlayerName { get; set; }
