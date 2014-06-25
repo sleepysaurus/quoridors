@@ -7,6 +7,7 @@ namespace Quoridors.Models.Database
     public interface IPositionRepository // BA inherit irepo<t
     {
         PositionDb NewModel(SqlDataReader reader);
+        PositionDb Create(PositionDb toCreate);
         PositionDb Update(PositionDb toUpdate);
         IEnumerable<PositionDb> All();
         IEnumerable<PositionDb> GetByGame(int id);

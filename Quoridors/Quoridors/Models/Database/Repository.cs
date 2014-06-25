@@ -23,6 +23,7 @@ namespace Quoridors.Models.Database
             _command.CommandType = CommandType.StoredProcedure;
             _command.Parameters.AddRange(parameters);
             _command.ExecuteNonQuery();
+            _command.Parameters.Clear();
         }
 
         public IEnumerable<T> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters)

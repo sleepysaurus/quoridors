@@ -16,11 +16,27 @@ namespace Quoridors.Models.Database
                 reader.GetInt32(reader.GetOrdinal("game_id")));
         }
 
+        public PositionDb Create(PositionDb toCreate)
+        {
+            ExecuteStoredProcedure("CreatePosition", toCreate,
+                new SqlParameter[]
+                {
+                    new SqlParameter("@PlayerId", toCreate.PlayerId), new SqlParameter("@XPos", toCreate.XPos),
+                    new SqlParameter("@YPos", toCreate.YPos), new SqlParameter("@GameID", toCreate.GameId),
+                });
+            // toUpdate.Id = GetLastId();
+            return toCreate;
+        }
+
         public PositionDb Update(PositionDb toUpdate)
         {
-            ExecuteStoredProcedure("CreatePlayer", toUpdate,
-                new SqlParameter[] { new SqlParameter("@PlayerId", toUpdate.Id), new SqlParameter("@XPos", toUpdate.XPos), new SqlParameter("@YPos", toUpdate.YPos)});
-            toUpdate.Id = GetLastId();
+            ExecuteStoredProcedure("UpdatePosition", toUpdate,
+                new SqlParameter[]
+                {
+                    new SqlParameter("@PlayerId", toUpdate.PlayerId), new SqlParameter("@XPos", toUpdate.XPos),
+                    new SqlParameter("@YPos", toUpdate.YPos), new SqlParameter("@GameID", toUpdate.GameId),
+                });
+           // toUpdate.Id = GetLastId();
             return toUpdate;
         }
 

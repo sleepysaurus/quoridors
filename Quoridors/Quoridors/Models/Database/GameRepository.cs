@@ -11,18 +11,19 @@ namespace Quoridors.Models.Database
     {
         public override GameDb NewModel(SqlDataReader reader)
         {
-            return new GameDb();
+            var id = reader.GetInt32(reader.GetOrdinal("Id"));
+            return new GameDb(){Id=id,Turn = 0};
         }
 
-        public int CreateGame()
+        public GameDb CreateGame()
         {
-            ExecuteStoredProcedure("CreateGame", new GameDb(), new SqlParameter[]{});
-            return GetLastId();
+            var q = ExecuteReadStoredProcedure("CreateGame", new SqlParameter[] { });
+            return q.Single();
         }
 
         public GameDb GetById(int gameId)
         {
-            return ExecuteReadStoredProcedure("GetGameById", new SqlParameter[] { }).First(); // BA use .Single()
+            return ExecuteReadStoredProcedure("GetGameById", new SqlParameter[] { new SqlParameter("@game_id",gameId), }).First(); // BA use .Single()
         }
 
         public override IEnumerable<GameDb> All()

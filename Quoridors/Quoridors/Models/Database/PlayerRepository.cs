@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
@@ -19,7 +20,8 @@ namespace Quoridors.Models.Database
         {
             ExecuteStoredProcedure("CreatePlayer", toCreate,
                 new SqlParameter[] { new SqlParameter("@name", toCreate.Name), new SqlParameter("@game_id", toCreate.GameId) });
-            toCreate.Id = GetLastId();
+            var list = ExecuteReadStoredProcedure("GetAllPlayer", new SqlParameter[] { });
+            toCreate.Id = list.Last().Id;
             return toCreate;
         }
 

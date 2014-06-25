@@ -2,15 +2,15 @@
 {
     public class Brick
     {
-        public Brick(int xPos, int yPos, BrickDirection topOrLeft)
+        public Brick(int xPos, int yPos, BrickAlignment topOrLeft)
         {
             XPos = xPos;
             YPos = yPos;
-            BrickDirection = topOrLeft;
+            BrickAlignment = topOrLeft;
         }
 
         public int XPos { get; private set; }
         public int YPos { get; private set; }
-        public BrickDirection BrickDirection { get; private set; }
+        public BrickAlignment BrickAlignment { get; private set; }
     }
 }
