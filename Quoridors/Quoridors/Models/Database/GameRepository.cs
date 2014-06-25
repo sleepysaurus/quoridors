@@ -33,7 +33,7 @@ namespace Quoridors.Models.Database
 
         public void UpdateGame(Game game)
         {
-            ExecuteReadStoredProcedure("Update", new SqlParameter[] {new SqlParameter("@game_id", game.Id), new SqlParameter("@game_turns", game.Turn) });
+            ExecuteReadStoredProcedure("UpdateGame", new SqlParameter[] {new SqlParameter("@game_id", game.Id), new SqlParameter("@game_turns", game.Turn) });
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Quoridors.Models.Database.Interfaces
         PlayerDb NewModel(SqlDataReader reader);
         PlayerDb CreatePlayer(PlayerDb toCreate);
         IEnumerable<PlayerDb> All();
-        PositionDb GetPosition(int playerId);
+        //PositionDb GetPositionByPlayerId(int playerId);
         void ExecuteStoredProcedure(string procedureName, PlayerDb thingToDoStuffWith, SqlParameter[] parameters);
         IEnumerable<PlayerDb> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters);
         void ExecuteNonQuery(string query);

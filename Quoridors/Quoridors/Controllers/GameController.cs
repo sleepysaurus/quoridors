@@ -46,7 +46,7 @@ namespace Quoridors.Controllers
         }
 
         [HttpPost]
-        public JsonResult MovePlayer(PositionDb position)
+        public JsonResult MovePlayer(PositionDb position)   
         {
             var game = _gameFactory.Load(position.GameId);
             game.Board = _boardStateUpdater.MovePlayer(position, game).Board;
@@ -58,7 +58,7 @@ namespace Quoridors.Controllers
         }
 
         [HttpPost]
-        public JsonResult PlaceWall(WallDb wall)
+        public JsonResult PlaceWall(WallDb wall)    //I suspect this will also need to take in a playerId to deduct from players total walls.
         {
             var game = _gameFactory.Load(wall.GameId);
             game.Board = _boardStateUpdater.AddWall(wall, game).Board;

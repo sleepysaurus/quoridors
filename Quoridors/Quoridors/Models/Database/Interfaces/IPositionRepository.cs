@@ -9,7 +9,8 @@ namespace Quoridors.Models.Database
         PositionDb NewModel(SqlDataReader reader);
         PositionDb Create(PositionDb toCreate);
         PositionDb Update(PositionDb toUpdate);
+        PositionDb GetPositionByPlayerId(int playerId);
         IEnumerable<PositionDb> All();
-        IEnumerable<PositionDb> GetByGame(int id);
+        IEnumerable<PositionDb> GetPositionByGameId(int id);
     }
 }

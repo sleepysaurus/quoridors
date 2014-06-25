@@ -43,10 +43,10 @@ namespace QuoridorsTests.Models.Services
         {
             // Arrange
             game.Board[6][8] = BoardCellStatus.Player1;
-            var playerRepo = new Mock<IPlayerRepository>();
+            var positionRepo = new Mock<IPositionRepository>();
             var position = new PositionDb(1, 3, 4, 1);
-            playerRepo.Setup(x => x.GetPosition(It.IsAny<int>())).Returns(position);
-            var cut = new BoardStateUpdater(null, null, playerRepo.Object);
+            positionRepo.Setup(x => x.GetPositionByPlayerId(It.IsAny<int>())).Returns(position);
+            var cut = new BoardStateUpdater(positionRepo.Object, null, null);
 
             // Act
             var newPositon = new PositionDb(1, 3, 3, 1);
@@ -60,10 +60,10 @@ namespace QuoridorsTests.Models.Services
         public void MovePlayer_correctly_adds_new_player_position()
         {
             // Arrange
-            var playerRepo = new Mock<IPlayerRepository>();
+            var positionRepo = new Mock<IPositionRepository>();
             var position = new PositionDb(1, 3, 4, 1);
-            playerRepo.Setup(x => x.GetPosition(It.IsAny<int>())).Returns(position);
-            var cut = new BoardStateUpdater(null, null, playerRepo.Object);
+            positionRepo.Setup(x => x.GetPositionByPlayerId(It.IsAny<int>())).Returns(position);
+            var cut = new BoardStateUpdater(positionRepo.Object, null, null);
 
             // Act
             var newPositon = new PositionDb(1, 3, 3, 1);
@@ -84,9 +84,9 @@ namespace QuoridorsTests.Models.Services
 
             var positonRepo = new Mock<IPositionRepository>();
             var wallRepository = new Mock<IWallRepository>();
-            positonRepo.Setup(x => x.GetByGame(It.IsAny<int>()))
+            positonRepo.Setup(x => x.GetPositionByGameId(It.IsAny<int>()))
                 .Returns(new List<PositionDb>() {new PositionDb(1, 3, 4, 1)});
-            wallRepository.Setup(x => x.GetByGameId(It.IsAny<int>())).Returns(new List<WallDb> {new WallDb(3, 4, 0, 1)});
+            wallRepository.Setup(x => x.GetWallByGameId(It.IsAny<int>())).Returns(new List<WallDb> { new WallDb(3, 4, 0, 1) });
             var cut = new BoardStateUpdater(positonRepo.Object, wallRepository.Object, null);
 
             // Act

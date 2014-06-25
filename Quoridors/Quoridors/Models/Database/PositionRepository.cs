@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using Quoridors.Models.Database.Interfaces;
 using Quoridors.Models.DatabaseModels;
 
@@ -46,9 +47,14 @@ namespace Quoridors.Models.Database
         } 
 
 
-        public  IEnumerable<PositionDb> GetByGame(int id)
+        public  IEnumerable<PositionDb> GetPositionByGameId(int id)
         {
-            return ExecuteReadStoredProcedure("GetByGame", new SqlParameter[] {new SqlParameter("gameid",id) });
+            return ExecuteReadStoredProcedure("GetPositionByGameId", new SqlParameter[] { new SqlParameter("@game_id", id) });
+        }
+
+        public PositionDb GetPositionByPlayerId(int playerId)
+        {
+            return ExecuteReadStoredProcedure("GetPositionByPlayerId", new SqlParameter[] { new SqlParameter("@player_id", playerId) }).Single();
         }
     }
 }
