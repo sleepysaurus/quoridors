@@ -29,10 +29,10 @@ namespace Quoridors.Controllers
 
         [HttpGet]
         public JsonResult NewGame()
-        {
-            
-            Game game = _gameFactory.New();
+        {  
+            //BA WTF is this doing in the controller?
 
+            Game game = _gameFactory.New();
 
             var player1 = new PlayerDb(game.Players[0].PlayerName, game.Id);
             var player2 = new PlayerDb(game.Players[1].PlayerName, game.Id);
