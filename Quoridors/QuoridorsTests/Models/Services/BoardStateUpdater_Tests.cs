@@ -13,12 +13,13 @@ namespace QuoridorsTests.Models.Services
     class BoardStateUpdater_Tests
     {
         private Game game;
+        private BoardFactory boardFactory;
 
         [TestFixtureSetUp]
         public void TestSetup()
         {
-            game = new Game();
-            game.CreateBoard();
+            boardFactory = new BoardFactory();
+            game = new Game(1, 1, boardFactory.CreateBoard());
             game.Board[6][7] = BoardCellStatus.Wall;
             game.Board[8][7] = BoardCellStatus.Wall;
         }
@@ -31,7 +32,7 @@ namespace QuoridorsTests.Models.Services
             var wall = new WallDb(3,4,0,1);
             
             // Act
-            var newGame = cut.AddWall(wall, new Game());
+            var newGame = cut.AddWall(wall, new Game(1,1, boardFactory.CreateBoard()));
 
             // Assert
             Assert.That(newGame.Board, Is.EqualTo(game.Board));
@@ -76,8 +77,7 @@ namespace QuoridorsTests.Models.Services
         public void UpdateBoardToSavedState_correctly_updates_a_board_with_one_wall_and_one_player()
         {
             // Arrange
-            var testGame = new Game();
-            testGame.CreateBoard();
+            var testGame = new Game(1,1, boardFactory.CreateBoard());
             testGame.Board[6][7] = BoardCellStatus.Wall;
             testGame.Board[8][7] = BoardCellStatus.Wall;
             testGame.Board[6][8] = BoardCellStatus.Player1;
@@ -90,7 +90,7 @@ namespace QuoridorsTests.Models.Services
             var cut = new BoardStateUpdater(positonRepo.Object, wallRepository.Object, null);
 
             // Act
-            var newGame = new Game();
+            var newGame = new Game(1, 1, boardFactory.CreateBoard());
             cut.UpdateBoardToSavedState(newGame);
 
             // Assert

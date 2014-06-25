@@ -16,13 +16,15 @@ namespace QuoridorsTests.Models.Services
         public void Checking_if_the_methods_within_MappingGameFromDatabase_are_being_called()
         {
             // Arrange
-            var mock = new Mock<IBoardStateUpdater>();
-            var cut = new GameDbMapperToGame(mock.Object);
+            var boardMock = new Mock<IBoardStateUpdater>();
+            var factoryMock = new Mock<IBoardFactory>();
+
+            var cut = new GameDbMapperToGame(boardMock.Object, factoryMock.Object);
             var game = new GameDb();
             // Act
             cut.MappingGameFromDatabase(game);
             // Assert
-            mock.Verify(x => x.UpdateBoardToSavedState(It.IsAny<Game>()), Times.Exactly(1));
+            boardMock.Verify(x => x.UpdateBoardToSavedState(It.IsAny<Game>()), Times.Exactly(1));
         }
     }
 }

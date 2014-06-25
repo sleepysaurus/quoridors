@@ -36,10 +36,10 @@ namespace Quoridors.Controllers
         public JsonResult MovePlayer(PositionDb position)
         {
             var game = _gameFactory.Load(position.GameId);
-            var newBoard = _boardStateUpdater.MovePlayer(position, game).Board;
+            game.Board = _boardStateUpdater.MovePlayer(position, game).Board;
             
             _positionRepository.Update(position);
-            var boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard, game);
+            var boardToReturn = _boardToJsonMapper.CreateBoardObject( game);
             return Json(boardToReturn, JsonRequestBehavior.AllowGet);
         }
 
@@ -47,9 +47,9 @@ namespace Quoridors.Controllers
         public JsonResult PlaceWall(WallDb wall)
         {
             var game = _gameFactory.Load(wall.GameId);
-            var newBoard = _boardStateUpdater.AddWall(wall, game).Board;
+            game.Board = _boardStateUpdater.AddWall(wall, game).Board;
             _wallRepository.CreateWall(wall);
-            var boardToReturn = _boardToJsonMapper.CreateBoardObject(newBoard, game);
+            var boardToReturn = _boardToJsonMapper.CreateBoardObject(game);
             return Json(boardToReturn, JsonRequestBehavior.AllowGet);
         }
     }

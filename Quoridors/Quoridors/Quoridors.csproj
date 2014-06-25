@@ -202,9 +202,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BoardToJson.cs" />
-    <Compile Include="Models\BrickDirection.cs" />
+    <Compile Include="Models\BrickAlignment.cs" />
     <Compile Include="Models\Database\Interfaces\IPlayerRepository.cs" />
     <Compile Include="Models\Interfaces\IBoardStateUpdater.cs" />
+    <Compile Include="Models\Services\BoardFactory.cs" />
     <Compile Include="Models\Services\BoardToJsonMapper.cs" />
     <Compile Include="Models\Brick.cs" />
     <Compile Include="Models\Database\Interfaces\IGameRepository.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\DatabaseModels\PlayerDb.cs" />
     <Compile Include="Models\DatabaseModels\PositionDb.cs" />
     <Compile Include="Models\DatabaseModels\WallDb.cs" />
+    <Compile Include="Models\Interfaces\IBoardFactory.cs" />
     <Compile Include="Plumbing\NinjectControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
