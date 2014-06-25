@@ -30,7 +30,7 @@ namespace Quoridors.Models.Services
             var game = new Game
             {
                 Id = gameId,
-                Turn = 0,
+                Turn = 1,
                 Players = players
             };
             
@@ -42,7 +42,6 @@ namespace Quoridors.Models.Services
         {
             var gameDb = _gameRepository.GetById(gameId);
             var game = _dbMapperToGame.MappingGameFromDatabase(gameDb);
-            _boardStateUpdater.UpdateBoardToSavedState(game);
             return game;
         }
     }

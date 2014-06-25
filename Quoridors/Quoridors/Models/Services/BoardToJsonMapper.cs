@@ -15,10 +15,12 @@ namespace Quoridors.Models.Services
             _positionRepository = positionRepository;
         }
 
-        public BoardToJson CreateBoardObject(BoardCellStatus[][] board)
+        public BoardToJson CreateBoardObject(BoardCellStatus[][] board, Game game)
         {
            return new BoardToJson
             {
+                Turn = game.Turn,
+                GameId = game.Id,
                 ListOfBricks = GetListOfBricks(board),
                 ListOfPlayerPositions = GetListOfPlayerPositions()
             };
