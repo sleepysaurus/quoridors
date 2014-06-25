@@ -46,7 +46,7 @@ namespace Quoridors.Controllers
             _positionRepository.Create(position1);
             _positionRepository.Create(position2);
 
-            var convertedgame = _boardToJsonMapper.CreateBoardObject(game.Board, game);
+            var convertedgame = _boardToJsonMapper.CreateBoardObject(game);
             return Json(convertedgame, JsonRequestBehavior.AllowGet);
         }
 
