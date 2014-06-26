@@ -42,6 +42,7 @@ $(document).ready(function() {
 
     //ko.applyBindings(new ViewModel());
     //$("#logo").spin().animate({ height: "20px" }, 500);
+
     $(".draggable").draggable({ helper: "clone" });
 
     $(".gameBoard td").droppable({
