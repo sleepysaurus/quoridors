@@ -4,7 +4,7 @@ namespace Quoridors.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index() // BA delete
+        public ActionResult Index()
         {
             return View();
         }

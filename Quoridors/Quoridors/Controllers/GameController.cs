@@ -31,7 +31,7 @@ namespace Quoridors.Controllers
         public JsonResult NewGame() 
         {  
             
-            Game game = _gameFactory.New(new []{"Jim", "Barry"});
+            var game = _gameFactory.New(new []{"Jim", "Barry"});
 
             foreach (var player in game.Players)
             {
@@ -56,7 +56,7 @@ namespace Quoridors.Controllers
         }
 
         [HttpPost]
-        public JsonResult PlaceWall(WallDb wall)    //I suspect this will also need to take in a playerId to deduct from players total walls.
+        public JsonResult PlaceWall(WallDb wall)
         {
             var game = _gameFactory.Load(wall.GameId);
             game.Board = _boardStateUpdater.AddWall(wall, game).Board;
