@@ -12,7 +12,7 @@ namespace Quoridors.Models.Database
 
         protected Repository()
         {
-            _connection = new SqlConnection(@ConfigurationManager.AppSettings["Connection-String"]);
+            _connection = new SqlConnection(@ConfigurationManager.ConnectionStrings["quoridors"].ConnectionString);
             _connection.Open();
             _command = new SqlCommand("", _connection);
         }
