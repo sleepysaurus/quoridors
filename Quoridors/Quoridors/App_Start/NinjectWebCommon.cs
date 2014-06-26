@@ -1,3 +1,6 @@
+using System.Web.Mvc;
+using Quoridors.Plumbing;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Quoridors.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Quoridors.App_Start.NinjectWebCommon), "Stop")]
 
@@ -47,6 +50,7 @@ namespace Quoridors.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(kernel));
                 return kernel;
             }
             catch
