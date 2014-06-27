@@ -33,6 +33,10 @@ button:hover {
     padding-bottom: 10px;
 }
 
+#player-turn {
+    padding: 5px;
+    color: white;
+}
 
 .gameBoard {
     width: 660px;
@@ -78,6 +82,13 @@ tr:last-child td {
 
 }
 
+#generate-error {
+    margin-top: 5px;
+}
+
+.draggable {
+    margin: 5px 0;
+}
 
 /*----------PLAYERS----------*/
 

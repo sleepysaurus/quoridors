@@ -5,8 +5,7 @@
         </div>
         <div class="grid_12">
             <div class="grid_container">
-                <div>Player 1 Position: <span data-bind="text: player1Position.x"></span>Player 2 Position<span data-bind="text: player2Position"></span></div>
-                <div id="turn" class="grid_2">Turn: <span id="player-turn">Player 1</span></div>
+                <div id="turn" class="grid_2">Turn: <span id="player-turn" class="player1">Player 2</span></div>    @*WRONG WAY ROUND*@
             </div>
         </div>
         <div>
@@ -14,17 +13,17 @@
             </table>
         </div>
         <div>
-            <span id="player1Id">Player1</span>
-            <span id="player2Id">Player2</span>
-        </div>
-        <div>
-            <textarea id="msg" rows="3" cols="50" placeholder="Game messages..."></textarea>
-        </div>
-        <div>
-            <button>Move</button>
+            <br/>
             <span class="draggable vertical">Vertical Wall</span>
             <span class="draggable horizontal">Horizontal Wall</span>
         </div>
+        <br/>
+        <button id="error">Generate Error</button>
+        
+        <div>
+            <textarea id="msg" rows="3" cols="50" placeholder="Game messages..."></textarea>
+        </div>
     </div>
+
     <script src="~/Scripts/application.js"></script>
 </body>

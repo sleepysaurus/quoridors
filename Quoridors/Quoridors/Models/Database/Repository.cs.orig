@@ -12,15 +12,21 @@ namespace Quoridors.Models.Database
 
         private SqlCommand CreateCommand(string procName, SqlConnection connection)
         {
-            var command = new SqlCommand(procName, connection) { CommandType = CommandType.StoredProcedure };
+<<<<<<< HEAD
+            _connection = new SqlConnection(@ConfigurationManager.ConnectionStrings["quoridors"].ConnectionString);
+            _connection.Open();
+            _command = new SqlCommand("", _connection);
+=======
+            var command = new SqlCommand(procName, connection) {CommandType = CommandType.StoredProcedure};
             return command;
         }
 
         public SqlConnection CreateConnection()
         {
-            var connection = new SqlConnection(@ConfigurationManager.ConnectionStrings["quoridors"].ConnectionString);
+            var connection = new SqlConnection(@ConfigurationManager.AppSettings["Connection-String"]);
             connection.Open();
             return connection;
+>>>>>>> dev
         }
 
         public void ExecuteStoredProcedure(string procedureName, T thingToDoStuffWith, SqlParameter[] parameters)
