@@ -13,8 +13,6 @@ namespace Quoridors.Models.Database.Interfaces
         void ExecuteStoredProcedure(string procedureName, PlayerDb thingToDoStuffWith, SqlParameter[] parameters);
         IEnumerable<PlayerDb> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters);
         void ExecuteNonQuery(string query);
-        int GetLastId();
         IEnumerable<PlayerDb> ExecuteRead(string query);
-        void Dispose();
     }
 }

@@ -10,80 +10,78 @@ namespace Quoridors.Models.Database
     {
         public abstract IEnumerable<T> All();
 
-        protected Repository()
+        private SqlCommand CreateCommand(string procName, SqlConnection connection)
         {
-            _connection = new SqlConnection(@ConfigurationManager.AppSettings["Connection-String"]);
-            _connection.Open();
-            _command = new SqlCommand("", _connection);
+            var command = new SqlCommand(procName, connection) {CommandType = CommandType.StoredProcedure};
+            return command;
+        }
+
+        public SqlConnection CreateConnection()
+        {
+            var connection = new SqlConnection(@ConfigurationManager.AppSettings["Connection-String"]);
+            connection.Open();
+            return connection;
         }
 
         public void ExecuteStoredProcedure(string procedureName, T thingToDoStuffWith, SqlParameter[] parameters)
         {
-            _command.CommandText = procedureName;
-            _command.CommandType = CommandType.StoredProcedure;
-            _command.Parameters.AddRange(parameters);
-            _command.ExecuteNonQuery();
-            _command.Parameters.Clear();
+            using (var connection = CreateConnection())
+            {
+                using (var command = CreateCommand(procedureName, connection))
+                {
+                    command.Parameters.AddRange(parameters);
+                    command.ExecuteNonQuery();
+                }
+            }
+            
         }
 
         public IEnumerable<T> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters)
         {
-            _command.CommandText = procedureName;
-            _command.CommandType = CommandType.StoredProcedure;
-            _command.Parameters.AddRange(parameters);
-
-            var result = new List<T>();
-            using (var reader = _command.ExecuteReader())
+            using (var connection = CreateConnection())
+            using (var command = CreateCommand(procedureName, connection))
             {
-                while (reader.Read())
+                command.Parameters.AddRange(parameters);
+
+                var result = new List<T>();
+                using (var reader = command.ExecuteReader())
                 {
-                    result.Add(NewModel(reader));
+                    while (reader.Read())
+                    {
+                        result.Add(NewModel(reader));
+                    }
+                    return result;
                 }
-                return result;
             }
         }
 
-        private readonly SqlConnection _connection;
-        private readonly SqlCommand _command;
 
         public void ExecuteNonQuery(string query)
         {
-            _command.CommandText = query;
-            _command.ExecuteNonQuery();
-        }
-
-        public int GetLastId()
-        {
-            _command.CommandText = "SELECT @@IDENTITY as [identity];";
-            using (var reader = _command.ExecuteReader())
+            using (var connection = CreateConnection())
+            using (var command = CreateCommand(query, connection))
             {
-                reader.Read();
-                return int.Parse(reader[0].ToString());
+                command.ExecuteNonQuery();
             }
         }
 
         public IEnumerable<T> ExecuteRead(string query)
         {
-            _command.CommandText = query;
-
-            var result = new List<T>();
-            using (var reader = _command.ExecuteReader())
+            using (var connection = CreateConnection())
+            using (var command = CreateCommand(query, connection))
             {
-                while (reader.Read())
+                var result = new List<T>();
+                using (var reader = command.ExecuteReader())
                 {
-                    result.Add(NewModel(reader));
+                    while (reader.Read())
+                    {
+                        result.Add(NewModel(reader));
+                    }
+                    return result;
                 }
-                return result;
             }
         }
 
         public abstract T NewModel(SqlDataReader reader);
-
-        public void Dispose()
-        {
-            if (_connection.State != ConnectionState.Open) return;
-            _connection.Close();
-            _connection.Dispose();
-        }
     }
 }

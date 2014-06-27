@@ -1,46 +1,11 @@
-﻿var player = "player1";
-
-//var ViewModel = function (player) {
-//    this.player = player,
-//    this.playerTurn = ko.observable(1),
-//    this.player1Position = ko.observable(),
-//    this.player2Position = ko.observable(),
-
-//    this.playerCss = function (xPoz, yPoz) {
-//        if (xPoz === this.player1Position().x && yPoz === this.player1Position().y) {
-//            return "player1";
-//        }
-//        if (xPoz === this.player2Position().x && yPoz === this.player2Position().y) {
-//            return "player2";
-//        }
-//        return "";
-//    },
-
-//    this.registerClick = function (xPoz, yPoz) {
-//        if (this.player === "player1") {
-//            this.player = "player2";
-//            this.player2Position({
-//                x: xPoz,
-//                y: yPoz
-//            });
-
-//        } else {
-//            this.player1Position({
-//                x: xPoz,
-//                y: yPoz
-//            });
-//            this.player = "player1";
-//        }
-//    }
-//}
-
-
-
-$(document).ready(function() {
+﻿$(document).ready(function() {
 
     setup();
 
-    //ko.applyBindings(new ViewModel());
+    var game = new Game();
+    game.newGame();
+    console.log("newed up game:", game);
+
     //$("#logo").spin().animate({ height: "20px" }, 500);
 
     $(".draggable").draggable({ helper: "clone" });
@@ -70,11 +35,27 @@ $(document).ready(function() {
 
         // TODO reply to server with walldrop
         drop: function (event, ui) {
-            if (player === "player1") {
-                player = "player2";
-            } else {
+            //if (game.currentPlayer === "player1") {
+            //    game.currentPlayer = "player2";
+            //} else {
+            //    game.currentPlayer = "player1";
+            //}
+
+            var player;
+            if (game.turn % 2 == 1) {
+                game.currentPlayer = game.player1;
                 player = "player1";
+                game.turn += 1; //temp turn increment
+                $("#player-turn").removeClass(player);
+                $("#player-turn").addClass("player2");
+            } else {
+                game.currentPlayer = game.player2;
+                player = "player2";
+                game.turn += 1; //temp turn increment
+                $("#player-turn").removeClass(player);
+                $("#player-turn").addClass("player1");
             }
+
             $("#player-turn").html(player);
             if (ui.helper.context.className.contains("horizontal")) {
                 $(this).removeClass("hover-wall-top");
@@ -90,15 +71,26 @@ $(document).ready(function() {
         }
     });
 
-    newGame();
 
     $(".gameBoard").on('click', 'td', function () {
+        var player;
 
+        //if (game.currentPlayer.xPos - $(this)) {
+            //currently working on this.
+        //};
 
-        if (player === "player1") {
-            player = "player2";
-        } else {
+        if (game.turn % 2 == 1) {
+            game.currentPlayer = game.player1;
             player = "player1";
+            game.turn += 1; //temp turn increment
+            $("#player-turn").removeClass(player);
+            $("#player-turn").addClass("player2");
+        } else {
+            game.currentPlayer = game.player2;
+            player = "player2";
+            game.turn += 1; //temp turn increment
+            $("#player-turn").removeClass(player);
+            $("#player-turn").addClass("player1");
         }
 
         $(".gameBoard td").removeClass(player);
@@ -107,17 +99,17 @@ $(document).ready(function() {
         $("#player-turn").html(player);
 
         var move = {
-            PlayerId: 1,
-            GameId: 1,
+            PlayerId: game.currentPlayer.id,
+            GameId: game.ID,
             XPos: $(this).attr("data-yPoz"),
-            YPos: $(this).attr("data-xPoz")
-        };
+            YPos: $(this).attr("data-xPoz"),
+    };
 
         $.ajax({
             type: "POST",
             url: "/Game/MovePlayer",
             data: move,
-            success: redrawBoard,
+            success: game.redrawBoard,
             error: function() {
                 console.log("you fail");
             }
@@ -125,13 +117,7 @@ $(document).ready(function() {
     });
 });
 
-function newGame() {
-    $.ajax({
-        type: "GET",
-        url: "/Game/NewGame",
-        success: processNewGameData
-    });
-}
+
 
 function setup() {
     for (var horizontal = 0; horizontal < 9; horizontal++) {
@@ -143,41 +129,72 @@ function setup() {
     }
 }
 
+var Game = function () {
+    this.ID = "";
+    this.player1 = new Player();
+    this.player2 = new Player();
+    this.currentPlayer;
+    this.turn;
+    self = this;
+}
+Game.prototype = {
+     newGame: function() {
+            $.ajax({
+            type: "GET",
+            url: "/Game/NewGame",
+            success: this.processNewGameData,
+            error: function() {
+            console.log("NewGame not made");
+            }
+        });
+    },
 
+    processNewGameData: function(data) {
+        console.log("inside processNewGameData");
+        console.log("process gamedata:", data);
+        self.ID = data.GameId;
+        self.turn = data.Turn;
+        self.player1 = {
+            id: data.ListOfPlayerPositions[0].PlayerId,
+            xPos: data.ListOfPlayerPositions[0].XPos,
+            yPos: data.ListOfPlayerPositions[0].YPos,
+        };
+        console.log("process game data: player1", self.player1);
+        self.player2 = {
+            id: data.ListOfPlayerPositions[1].PlayerId,
+            xPos: data.ListOfPlayerPositions[1].XPos,
+            yPos: data.ListOfPlayerPositions[1].YPos,
+        };
+        console.log("process game data: player2", self.player2);
 
-var processNewGameData = function (data) {
-    var gameId = data.GameId;
-    var turn = data.Turn;
-    var player1 = {
-        id: data.ListOfPlayerPositions[0].PlayerId,
-        xPos: data.ListOfPlayerPositions[0].XPos,
-        yPos: data.ListOfPlayerPositions[0].YPos,
+        self.currentPlayer = self.player1;
+        self.redrawBoard(data);
+    },
+
+    redrawBoard: function (data) {
+        console.log("inside redrawBoard");
+        console.log(data);
+
+        $.each(data.ListOfPlayerPositions, function(index, player) {    //please note: x and y are inverted between front end and backend!!
+                if (self.player1.id === player.PlayerId) {
+                    $("td[data-ypoz='" + player.XPos + "'][data-xpoz='" + player.YPos + "']").addClass("player1");
+                    console.log("player1 xpos:", player.XPos);
+                    console.log("player1 xpos:", player.YPos);
+                    console.log("player1 redrawn");
+                }
+                if (self.player2.id === player.PlayerId) {
+                    $("td[data-ypoz='" + player.XPos + "'][data-xpoz='" + player.YPos + "']").addClass("player2");
+                    console.log("player2 xpos:", player.XPos);
+                    console.log("player2 ypos:", player.YPos);
+                    console.log("player2 redrawn");
+                }
+        });
     }
-
-    var player2 = {
-        id: data.ListOfPlayerPositions[1].PlayerId,
-        xPos: data.ListOfPlayerPositions[1].XPos,
-        yPos: data.ListOfPlayerPositions[1].YPos,
-    }
-
-    //$.each(data, function (index, player) {
-    //    var playerId = player.PlayerNumber;
-    //    $("#player" + playerId + "Id").html(player.PlayerName);
-    //});
 }
 
-var redrawBoard = function (data) {
-    $.each(data.ListOfPlayerPositions, function (index, player) {
-        var playerId = player.playerId;
-        var gameId = player.gameId;
-        var xPos = player.xPos;
-        var yPos = player.yPos;
-
-        //$(".gameBoard  tr:nth-child(" + yPos + ") > td:nth-child(" + xPos + ")").children().addClass("#player" + playerId + "Id");
-        $(".gameBoard  [data-ypoz='" + yPos + "'][data-xpoz='" + xPos + "']").addClass("#player" + playerId + "Id");
-    });
-}
-
+var Player = function() {
+    
+};
 
 
 //var handleBarSource = $("#entry-template").html();
