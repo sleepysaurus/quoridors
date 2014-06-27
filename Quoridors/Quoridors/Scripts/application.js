@@ -1,4 +1,10 @@
 ﻿$(document).ready(function() {
+    $("#generate-error").on('click', function() {
+        $.ajax({
+            type: "POST",
+            url: "/Game/Error"
+        });
+    });
 
     setup();
 

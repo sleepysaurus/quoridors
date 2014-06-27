@@ -33,7 +33,6 @@ namespace Quoridors.Models.Database
                     command.ExecuteNonQuery();
                 }
             }
-            
         }
 
         public IEnumerable<T> ExecuteReadStoredProcedure(string procedureName, SqlParameter[] parameters)
