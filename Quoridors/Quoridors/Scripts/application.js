@@ -1,8 +1,8 @@
 ﻿$(document).ready(function() {
-    $("#generate-error").on('click', function() {
+    $("#error").on('click', function() {
         $.ajax({
-            type: "POST",
-            url: "/Game/Error"
+            type: "GET",
+            url: "/Game/ThrowError"
         });
     });
 

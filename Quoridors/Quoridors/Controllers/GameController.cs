@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Quoridors.Models;
 using Quoridors.Models.Database;
@@ -53,6 +54,12 @@ namespace Quoridors.Controllers
             _positionRepository.Update(position);
             var boardToReturn = _boardToJsonMapper.CreateBoardObject( game);
             return Json(boardToReturn, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ThrowError()
+        {
+            throw new Exception("This error is a redundant error");
         }
 
         [HttpPost]
